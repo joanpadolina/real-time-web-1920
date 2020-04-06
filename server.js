@@ -1,7 +1,7 @@
 const express = require('express')
 const app = express()
-const http = require('http').createServer(app)
-const io = require('socket.io')(3000)
+const http = require('http').Server(app)
+const io = require('socket.io')(http)
 
 require('dotenv').config()
 const port = process.env.PORT
@@ -19,26 +19,30 @@ app.get('/', (req, res) => {
 })
 
 
-const user = {}
+let user = []
 
 io.on('connection', socket => {
-
+    let thisUser
     console.log('Server side : a user connected')
 
     socket.on('new-user', name => {
-        user[socket.id] = name
-        socket.emit('user-connected', name)
+        const newUser = {
+            id: socket.id,
+            name: name
+        }
+        user.push(newUser)
+        thisUser = newUser
+        io.emit('user-connected', name)
     })
+
     socket.on('send-chat-message', message => {
         console.log(message)
-        socket.emit('chat-message', {
-            message: message,
-            name: user[socket.id]
-        })
+        io.emit('chat-message', message)
     })
     socket.on('disconnect', () => {
-        socket.emit('user-disconnect', user[socket.id])
-        delete user[socket.id]
+        console.log(thisUser)
+        io.emit('user-disconnected', thisUser)
+        delete thisUser
     })
 })
 
