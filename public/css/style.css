@@ -61,7 +61,6 @@ box-shadow: inset -5px -5px 0px 1px aliceblue;
 } */
 section.chat-container {
     background: #bee1e5;
-    height: 83vh;
     position: relative;
     display: block;
     width: 20em;
@@ -69,7 +68,7 @@ section.chat-container {
     float: right;
     right: 2em;
     border: 1px solid #cccccc;
-    top: 5em;
+    top: 2em;
     box-shadow: 6px 4px 0px 0px #eaeaea;
 }
 
@@ -99,20 +98,20 @@ ul#messages {
 form#chat-form {
     margin: auto;
     position: relative;
-    width: 19em;
-    left: 1em;
+    text-align: center;
 }
 input#input-msg {
-    width: 19em;
+    width: 80%;
     height: 3em;
     position: relative;
 }
 .chat-input button {
     height: 3em;
-    width: 6em;
+    width: 80%;
     border: none;
     background: #6c8cd4;
     color: white;
+    margin: 1em;
 }
 
 button#leave {
