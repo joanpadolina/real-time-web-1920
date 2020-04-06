@@ -1,0 +1,127 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+body{
+    font-family: Roboto;
+}
+
+section.enter-user {
+    text-align: center;
+    height: 100vh;
+    position: absolute;
+    background: white;
+    width: 100vw;
+    z-index: 1;
+}
+form#name-form {
+    margin: 2em;
+    top: 50%;
+    bottom: 50%;
+    position: relative;
+}
+
+.enter-user label {
+    display: block;
+    padding: 1em;
+}
+
+section.enter-user {
+    text-align: center;
+}
+
+.enter-user button {
+    border: none;
+    padding: 1em;
+    background: #addeca;
+    width: 40vw;
+    display: block;
+    margin: 1em auto;
+}
+
+input#name-value {
+    width: 40vw;
+    height: 4em;
+    border-radius: 0.7em;
+    border: 1px solid #cbcbcb;
+    outline: none;
+    text-align: center;
+    background: white;
+    box-shadow: 3px 2px 0px 1px aliceblue;
+    transition: 500ms ease;
+}
+
+input#name-value:focus {
+    box-shadow: -4px -4px 0px 1px aliceblue;
+}
+
+/* input#name-value:hover {
+box-shadow: inset -5px -5px 0px 1px aliceblue;
+} */
+section.chat-container {
+    background: #bee1e5;
+    height: 83vh;
+    position: relative;
+    display: block;
+    width: 20em;
+    border-radius: 1em;
+    float: right;
+    right: 2em;
+    border: 1px solid #cccccc;
+    top: 5em;
+    box-shadow: 6px 4px 0px 0px #eaeaea;
+}
+
+article.chat-msg {
+    margin: 1em;
+    background: white;
+    border-radius: 1em;
+    height: 70vh;
+}
+
+ul#messages {
+    list-style-type: none;
+    padding: 1em;
+    display: block;
+    position: relative;
+    height: 100%;
+    overflow: scroll;
+}
+#messages li:nth-child(odd) {
+    background: #f2f2f8;
+}
+
+#messages li {
+    padding:.6em;
+}
+
+form#chat-form {
+    margin: auto;
+    position: relative;
+    width: 19em;
+    left: 1em;
+}
+input#input-msg {
+    width: 19em;
+    height: 3em;
+    position: relative;
+}
+.chat-input button {
+    height: 3em;
+    width: 6em;
+    border: none;
+    background: #6c8cd4;
+    color: white;
+}
+
+button#leave {
+    height: 2em;
+    width: 5em;
+    border: none;
+    background: #b2b2b2;
+    color: white;
+    right: -22em;
+    top: 0.7em;
+    position: relative;
+}

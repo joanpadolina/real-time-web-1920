@@ -14,9 +14,12 @@ app
     .set('view engine', 'ejs')
     .set('views', 'views')
 
-app.get('/', (req, res) => {
-    res.sendFile(__dirname + '/index.html')
-})
+app
+    .get('/', (req, res) => {
+        // res.sendFile(__dirname + '/index.html')
+        res.render('index')
+    })
+    .get('/chat-room', (req, res) => res.render('pages/chat'))
 
 
 let user = []
@@ -36,11 +39,10 @@ io.on('connection', socket => {
     })
 
     socket.on('send-chat-message', message => {
-        console.log(message)
-        io.emit('chat-message', message)
+        io.emit('chat-message', {message, name: thisUser.name})
     })
     socket.on('disconnect', () => {
-        console.log(thisUser)
+        // console.log(thisUser)
         io.emit('user-disconnected', thisUser)
         delete thisUser
     })

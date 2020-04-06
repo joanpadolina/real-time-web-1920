@@ -1,0 +1,27 @@
+<%- include('partials/head')  %>
+<section class="enter-user">
+    <form id="name-form" action="/chat-room">
+        <label for="name-value">username</label>
+        <input id="name-value" autocomplete="off" /><button id="username" type="submit">enter</button>
+    </form>
+</section>
+
+<section class="chat-container">
+    <button id="leave">leave</button>
+    <article class="chat-msg">
+        <ul id="messages"></ul>
+    </article>
+
+    <div class="chat-input">
+        <form action="" id="chat-form">
+            <label for="input-msg"></label>
+            <input id="input-msg" autocomplete="off" /><button>Send</button>
+        </form>
+
+
+    </div>
+
+</section>
+
+
+<%- include('partials/footer')  %>
