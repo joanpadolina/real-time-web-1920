@@ -1,0 +1,44 @@
+{
+  "name": "realtime",
+  "version": "1.0.0",
+  "description": "realtime webapp",
+  "main": "server.js",
+  "directories": {
+    "doc": "docs"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "nodemon server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/joanpadolina/real-time-web-1920.git"
+  },
+  "keywords": [
+    "real",
+    "time",
+    "web",
+    "app",
+    "api",
+    "server",
+    "node",
+    "express"
+  ],
+  "author": "Joan Padolina",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/joanpadolina/real-time-web-1920/issues"
+  },
+  "homepage": "https://github.com/joanpadolina/real-time-web-1920#readme",
+  "dependencies": {
+    "concurrently": "^5.1.0",
+    "dotenv": "^8.2.0",
+    "ejs": "^3.0.2",
+    "express": "^4.17.1",
+    "nodemon": "^2.0.2",
+    "socket.io": "^2.3.0"
+  },
+  "devDependencies": {
+    "http-server": "^0.12.1"
+  }
+}
