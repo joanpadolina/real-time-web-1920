@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="css/style.css">
+
+    <title>Real Time Web</title>
+</head>
+
+<body>
+        <section class="enter-user">
+                <form id="name-form" action="/chat-room">
+                    <label for="name-value">username</label>
+                    <input id="name-value" autocomplete="off" /><button id="username" type="submit">enter</button>
+                </form>
+            </section>
+            
+            <section class="chat-container">
+                <button id="leave">leave</button>
+                <article class="chat-msg">
+                    <ul id="messages"></ul>
+                </article>
+            
+                <div class="chat-input">
+                    <form action="" id="chat-form">
+                        <label for="input-msg"></label>
+                        <input id="input-msg" autocomplete="off" /><button>Send</button>
+                    </form>
+            
+            
+                </div>
+            
+            </section>
+            
+    <!-- <script defer src="http://localhost:3000/socket.io/socket.io.js"></script> -->
+    <script src="/js/lib/socket.io.js"></script>
+    <script src="/js/index.js"></script>
+
+</body>
+
+</html>
