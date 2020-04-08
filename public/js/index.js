@@ -23,7 +23,7 @@ socket.on('server message', data => {
 
 // chat messages receving
 socket.on('chat-message', data => {
-    console.log('chat', data)
+    // console.log('chat', data)
     appendMessage(`${data.name}: ${data.newMsg}`)
 })
 
@@ -39,22 +39,24 @@ messageInput.addEventListener('keypress', () => {
 //     feedback.innerHTML = `<p><em>${data} is nu aan het typen...</em></p>`
 // })
 socket.on('command-message', data => {
-    const actor = 'self'
-    appendGiphy(data, actor)
+    appendMessage(data.message, data.newMessage)
 });
 socket.on('user-disconnected', data => {
-    console.log('si', data)
     appendMessage(`${data.name} disconnected`)
 })
 
 messageForm.addEventListener('submit', e => {
     e.preventDefault()
-    const message = messageInput.value
+    let message = messageInput.value
 
-    if(message[0] === '/'){
-        socket.emit('message command', message)
+    if (message[0]==='/') {
+        let sliceMsg = message.slice(5)
+        console.log(sliceMsg)
+        message = sliceMsg
+        socket.emit('message command', sliceMsg)
+
     }
-
+  
     socket.emit('send-chat-message', {
         message,
         name
@@ -62,11 +64,18 @@ messageForm.addEventListener('submit', e => {
     messageInput.value = ''
 })
 
-function appendMessage(message) {
+function appendMessage(message, data) {
     const msgContainer = document.getElementById('messages')
     const msgElement = document.createElement('li')
-    msgElement.innerText = message
-    msgContainer.append(msgElement)
+
+    if (data) {
+        msgElement.appendChild(appendGif(data))
+        msgContainer.append(msgElement)
+    } else {
+        msgElement.innerText = message
+        msgContainer.append(msgElement)
+    }
+    msgContainer.scrollTop = msgContainer.scrollHeight;
 }
 
 // remove add username
@@ -93,8 +102,11 @@ function whiteList(data) {
         appendMessage('nooo')
     }
 }
-console.log(whiteList(item))
 
-function appendGiphy(data) {
-console.log(data)
+function appendGif(data) {
+    let dataImg = data[0].images.original.url
+    let img = document.createElement('img')
+    img.src = dataImg
+    return img
 }
+

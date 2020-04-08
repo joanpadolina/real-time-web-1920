@@ -2,6 +2,7 @@ const express = require('express')
 const app = express()
 const http = require('http').Server(app)
 const io = require('socket.io')(http)
+const fetch = require('node-fetch')
 
 require('dotenv').config()
 const port = process.env.PORT
@@ -18,7 +19,6 @@ app
     .get('/', (req, res) => {
         res.render('index')
     })
-    .get('/chat-room', (req, res) => res.render('pages/chat'))
 
 
 io.on('connection', socket => {
@@ -26,8 +26,8 @@ io.on('connection', socket => {
     let user = []
     let thisUser
     let userAnon = 'anonymous'
-
-    socket.emit('server message', `Someone is lurking`)
+    socket.emit('server message', `Someone is lurking
+    Rules: No Cursing. Command /gif something or /giphy hi`)
     socket.broadcast.emit('server message', `${userAnon} is connected`)
 
     console.log('Server side : a user connected')
@@ -56,26 +56,35 @@ io.on('connection', socket => {
             let data = await get(message)
             console.log(data)
         }
-        console.log(get(message))
         socket.broadcast.emit('chat-message', {
             name: thisUser.name,
             newMsg
         })
     })
     socket.on('message command', async message => {
-        if (message[0] === '/') {
-            message = await excommands(message, message)
-            // console.log('command',message)
+        const commando = [
+            '/gif',
+            '/giphy'
+        ]
+
+        if (commando.indexOf(message) == -1) {
+            let newMessage = message.slice(5)
+            newMessage = await get(message)
+
+            data:[
+                {
+                    url:''
+                }
+            ]
+            console.log('server', newMessage.data)
             // show command result to self
             socket.emit('command-message', {
-                message,
-                name: thisUser
+                message,newMessage: newMessage.data
             })
 
             // broadcast command result to others
             socket.broadcast.emit('command-message', {
-                message,
-                name: thisUser
+                message,newMessage: newMessage.data
             })
         }
     })
@@ -100,7 +109,7 @@ function blackList(data) {
 }
 
 // commands for gifs
-function excommands(command) {
+function findCommandos(command) {
     const commando = {
         '/gif': get(),
         '/giphy': get()
@@ -108,13 +117,11 @@ function excommands(command) {
     return commando[command]
 }
 
-function createGifElement() {
-
-}
 // get api
 async function get(query) {
     const url = `https://api.giphy.com/v1/gifs/search?api_key=${process.env.API_KEY}&limit=1&q=${query}`
     const gifies = await apiFetch(url)
+    console.log('test',gifies)
     return gifies
 }
 
@@ -124,5 +131,4 @@ async function apiFetch(url) {
     const json = await response.json()
     return json
 }
-
 http.listen(port, () => console.log('listening to:' + port))
