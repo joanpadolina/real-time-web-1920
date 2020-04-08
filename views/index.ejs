@@ -1,11 +1,11 @@
 <%- include('partials/head')  %>
 <section class="enter-user">
-    <form id="name-form" action="/chat-room">
+    <form id="name-form" action="">
         <label for="name-value">username</label>
         <input id="name-value" autocomplete="off" /><button id="username" type="submit">enter</button>
     </form>
 </section>
-
+<div id="feedback"></div>
 <section class="chat-container">
     <button id="leave">leave</button>
     <article class="chat-msg">

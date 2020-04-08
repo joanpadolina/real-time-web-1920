@@ -5,43 +5,56 @@ const nameForm = document.getElementById('name-form')
 const getName = document.getElementById('name-value')
 
 
+// first name login
 nameForm.addEventListener('submit', e => {
     e.preventDefault()
     const thisName = getName.value
-    console.log('client name:', thisName)
     socket.emit('new-user', thisName)
-    socket.on('chat-message', data => {
-        console.log('chat',thisName, data)
-        if (data.name != thisName) {
-            appendMessage(`${data.name}: ${data.message.message}`)
-        }
-    
-    })
 })
-// console.log('testfdsfs',thisName)
 appendMessage('You joined')
 
-// socket.emit('new-user', name)
-
-// socket.on('chat-message', data => {
-//     console.log('chat',thisName)
-//     if (data.name != data.name) {
-//         appendMessage(`${data.name}: ${data.message}`)
-//     }
-
-// })
+// connection new user 
 socket.on('user-connected', data => {
-    console.log('user client ', data)
     appendMessage(`${data} has joined the chat`)
 })
+socket.on('server message', data => {
+    appendMessage(data)
+})
+
+// chat messages receving
+socket.on('chat-message', data => {
+    console.log('chat', data)
+    appendMessage(`${data.name}: ${data.newMsg}`)
+})
+
+
+// typing notification
+messageInput.addEventListener('keypress', () => {
+    socket.emit('typing')
+})
+
+// show typing
+// socket.on('typing', (data) => {
+//     console.log('client',data)
+//     feedback.innerHTML = `<p><em>${data} is nu aan het typen...</em></p>`
+// })
+socket.on('command-message', data => {
+    const actor = 'self'
+    appendGiphy(data, actor)
+});
 socket.on('user-disconnected', data => {
+    console.log('si', data)
     appendMessage(`${data.name} disconnected`)
 })
 
 messageForm.addEventListener('submit', e => {
     e.preventDefault()
     const message = messageInput.value
-    appendMessage(`You: ${message}`)
+
+    if(message[0] === '/'){
+        socket.emit('message command', message)
+    }
+
     socket.emit('send-chat-message', {
         message,
         name
@@ -56,17 +69,32 @@ function appendMessage(message) {
     msgContainer.append(msgElement)
 }
 
-
+// remove add username
 const removeUsername = document.getElementById('username')
 const usernameForm = document.querySelector('.enter-user')
-    
-removeUsername.addEventListener('click', ()=>{
+
+removeUsername.addEventListener('click', () => {
     usernameForm.style.display = 'none'
 })
-
+// leave or reset button
 const leaveButton = document.querySelector('#leave')
-
-leaveButton.addEventListener('click', ()=>{
+leaveButton.addEventListener('click', () => {
     usernameForm.style.display = "block"
 })
-console.log(leaveButton)
+
+
+//blacklist of words
+let ul = document.querySelector('#messages')
+let item = ul.querySelectorAll('li')
+
+function whiteList(data) {
+    console.log(data)
+    if (data == "fuck") {
+        appendMessage('nooo')
+    }
+}
+console.log(whiteList(item))
+
+function appendGiphy(data) {
+console.log(data)
+}

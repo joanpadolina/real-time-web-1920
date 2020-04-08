@@ -2,15 +2,56 @@
 
 During this course you will learn how to build a **meaningful** real-time application. You will learn techniques to setup an open connection between the client and the server. This will enable you to send data in real-time both ways, at the same time.
 
+## Table of Content
+1. __[Goals](#goals)__
+1. __[Installation](#installation)__
+1. __[Concept](#concept)__
+1. __[API](#api)__
+1. __[Data](#data)__
+1. __[Features](#features)__
+1. __[Sources](#sources)__
+1. __[Credits](#credits)__
+
 ## Goals
 - _Deal with real-time complexity_
 - _Handle real-time client-server interaction_
 - _Handle real-time data management_
 - _Handle multi-user support_
 
-[Rubric][rubric]
+## Installation
 
-## Curriculum
+* Clone
+
+```
+git clone https://github.com/joanpadolina/real-time-web-1920.git
+```
+* NPM
+
+```
+npm install
+```
+
+* Server - starts server.js
+
+```
+npm run dev
+```
+
+* Build
+
+``` 
+npm run build-dev
+```
+
+## Concept
+## API
+## Data
+## Features
+## Sources
+## Credits
+
+
+<!-- ## Curriculum
 
 ### Week 1 - Hello Server
 
@@ -33,9 +74,8 @@ Goal: Store, manipulate and share data between server-client
 Goal: Handle data sharing and multi-user support 
 
 [Exercises](https://github.com/cmda-minor-web/real-time-web-1819/blob/master/week-3.md)  
-[Slides](https://docs.google.com/presentation/d/1SHofRYg87bhdqhv7DQb_HZMbW7Iq1PtqxpdtZHMbMmk/edit?usp=sharing)
+[Slides](https://docs.google.com/presentation/d/1SHofRYg87bhdqhv7DQb_HZMbW7Iq1PtqxpdtZHMbMmk/edit?usp=sharing) -->
 
-> If you're seeing this message on a forked repo, it means one of our students hasn't changed the description yet 😈
 
 <!-- Add a link to your live demo in Github Pages 🌐-->
 
@@ -58,5 +98,3 @@ Goal: Handle data sharing and multi-user support
 <!-- Maybe a checklist of done stuff and stuff still on your wishlist? ✅ -->
 
 <!-- How about a license here? 📜  -->
-
-[rubric]: https://docs.google.com/spreadsheets/d/e/2PACX-1vSd1I4ma8R5mtVMyrbp6PA2qEInWiOialK9Fr2orD3afUBqOyvTg_JaQZ6-P4YGURI-eA7PoHT8TRge/pubhtml
