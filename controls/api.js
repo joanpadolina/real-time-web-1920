@@ -4,7 +4,6 @@ const fetch = require('node-fetch')
 async function get(query) {
     const url = `https://api.giphy.com/v1/gifs/search?api_key=${process.env.API_KEY}&limit=1&q=${query}`
     const gifies = await apiFetch(url)
-    console.log('test',gifies)
     return gifies
 }
 

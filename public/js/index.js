@@ -38,6 +38,7 @@ messageInput.addEventListener('keypress', () => {
 //     console.log('client',data)
 //     feedback.innerHTML = `<p><em>${data} is nu aan het typen...</em></p>`
 // })
+
 socket.on('command-message', data => {
     appendMessage(data.message, data.newMessage)
 });
