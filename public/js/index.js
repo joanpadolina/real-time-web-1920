@@ -49,8 +49,8 @@ messageForm.addEventListener('submit', e => {
     e.preventDefault()
     let message = messageInput.value
 
-    if (message[0]==='/') {
-        let sliceMsg = message.slice(5)
+    if (message[0] ==='/') {
+        let sliceMsg = message.slice(3)
         console.log(sliceMsg)
         message = sliceMsg
         socket.emit('message command', sliceMsg)

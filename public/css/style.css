@@ -63,15 +63,13 @@ section.chat-container {
     background: #bee1e5;
     position: relative;
     display: block;
-    width: 20em;
+    width: 30em;
+    margin: auto;
     border-radius: 1em;
-    float: right;
-    right: 2em;
     border: 1px solid #cccccc;
     top: 2em;
     box-shadow: 6px 4px 0px 0px #eaeaea;
 }
-
 article.chat-msg {
     margin: 1em;
     background: white;
