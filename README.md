@@ -7,7 +7,7 @@ During this course you will learn how to build a **meaningful** real-time applic
 ## Table of Content
 1. __[Goals](#goals)__
 1. __[Installation](#installation)__
-1. __[Chat Application](https://github.com/joanpadolina/real-time-web-1920/wiki/Chat-application)__
+1. __[Chat Application socket.io assignment [wiki]](https://github.com/joanpadolina/real-time-web-1920/wiki/Chat-application)__
 1. __[Concept](#concept)__
 1. __[API](#api)__
 1. __[Data](#data)__
