@@ -5,9 +5,10 @@
 During this course you will learn how to build a **meaningful** real-time application. You will learn techniques to setup an open connection between the client and the server. This will enable you to send data in real-time both ways, at the same time.
 
 ## Table of Content
+
+1. __[Chat Application socket.io assignment [wiki]](https://github.com/joanpadolina/real-time-web-1920/wiki/Chat-application)__
 1. __[Goals](#goals)__
 1. __[Installation](#installation)__
-1. __[Chat Application socket.io assignment [wiki]](https://github.com/joanpadolina/real-time-web-1920/wiki/Chat-application)__
 1. __[Concept](#concept)__
 1. __[API](#api)__
 1. __[Data](#data)__
