@@ -1,4 +1,5 @@
-# Real-Time Web @cmda-minor-web · 2019-2020
+# Real-Time 
+
 ![Imgur](https://imgur.com/fm0CUbZ.png)
 
 During this course you will learn how to build a **meaningful** real-time application. You will learn techniques to setup an open connection between the client and the server. This will enable you to send data in real-time both ways, at the same time.
