@@ -12,6 +12,7 @@ During this course you will learn how to build a **meaningful** real-time applic
 1. __[Concept](#concept)__
 1. __[API](#api)__
 1. __[Data](#data)__
+1. __[Data lifecycle](#data-lifecycle)__
 1. __[Features](#features)__
 1. __[Sources](#sources)__
 1. __[Credits](#credits)__
@@ -50,6 +51,8 @@ npm run build-dev
 ## Concept
 ## API
 ## Data
+## Data lifecycle
+![Imgur](https://i.imgur.com/tePPSxl.jpg)
 ## Features
 ## Sources
 ## Credits
