@@ -8,7 +8,9 @@
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "dev": "nodemon server.js"
+    "dev": "nodemon server.js rollup -c --watch",
+    "start": "rollup -c --watch  npm run dev",
+    "test1": "/public/js/bundle.js"
   },
   "repository": {
     "type": "git",
@@ -32,12 +34,21 @@
   "homepage": "https://github.com/joanpadolina/real-time-web-1920#readme",
   "dependencies": {
     "concurrently": "^5.1.0",
+    "cookie-parser": "^1.4.5",
+    "cors": "^2.8.5",
+    "d3": "^5.15.1",
     "dotenv": "^8.2.0",
     "ejs": "^3.0.2",
     "express": "^4.17.1",
+    "jsdom": "^16.2.2",
     "node-fetch": "^2.6.0",
     "nodemon": "^2.0.2",
-    "socket.io": "^2.3.0"
+    "querystring": "^0.2.0",
+    "request": "^2.88.2",
+    "rollup": "^2.6.1",
+    "socket.io": "^2.3.0",
+    "spotify-web-api-node": "^4.0.0",
+    "twitter": "^1.7.1"
   },
   "devDependencies": {
     "http-server": "^0.12.1"

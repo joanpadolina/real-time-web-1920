@@ -11,6 +11,7 @@ nameForm.addEventListener('submit', e => {
     const thisName = getName.value
     socket.emit('new-user', thisName)
 })
+
 appendMessage('You joined')
 
 // connection new user 
@@ -27,6 +28,13 @@ socket.on('chat-message', data => {
     appendMessage(`${data.name}: ${data.newMsg}`)
 })
 
+// music 
+// socket.on('music player', data => {
+//     const artist = data.song.item.artists[0].name
+//     const music = data.song.item.name
+//     appendMessage(` is now listening to :${artist} - ${music}`)
+
+// })
 
 // typing notification
 messageInput.addEventListener('keypress', () => {

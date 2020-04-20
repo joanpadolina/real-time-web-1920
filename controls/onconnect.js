@@ -1,6 +1,6 @@
 const get = require('./api')
 
-function onConnect(socket){
+async function onConnect(socket){
 
     let user = []
     let thisUser

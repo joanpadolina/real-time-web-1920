@@ -1,8 +1,27 @@
-<%- include('../partials/head')  %>
+<%- include('/partials/head')  %>
 
-<ul id="messages"></ul>
+<!-- <div id="my-visualisation"></div> -->
+<!-- <svg width="960" height="500"></svg> -->
 
-<form action="" id="chat-form">
-    <input id="input-msg" autocomplete="off" /><button>Send</button>
-</form>
-<%- include('../partials/footer')  %>
+
+<div id="feedback"></div>
+<section class="chat-container">
+    <button id="leave">leave</button>
+    <article class="chat-msg">
+        <ul id="messages"></ul>
+    </article>
+
+    <div class="chat-input">
+        <form action="" id="chat-form">
+            <label for="input-msg"></label>
+            <input id="input-msg" autocomplete="off" /><button>Send</button>
+        </form>
+
+
+    </div>
+</section>
+<section class="logspotify">
+    <button><a href="/login">Log in to your spotify</a></button>
+</section>
+
+<%- include('/partials/footer')  %>

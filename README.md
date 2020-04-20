@@ -1,5 +1,5 @@
 # Real-Time Web @cmda-minor-web · 2019-2020
-![Imgur](https://imgur.com/fm0CUbZ.png)
+<!-- ![Imgur](https://imgur.com/fm0CUbZ.png) -->
 
 During this course you will learn how to build a **meaningful** real-time application. You will learn techniques to setup an open connection between the client and the server. This will enable you to send data in real-time both ways, at the same time.
 
@@ -10,6 +10,7 @@ During this course you will learn how to build a **meaningful** real-time applic
 1. __[Concept](#concept)__
 1. __[API](#api)__
 1. __[Data](#data)__
+1. __[Data lifecycle](#data-lifecycle)__
 1. __[Features](#features)__
 1. __[Sources](#sources)__
 1. __[Credits](#credits)__
@@ -46,8 +47,76 @@ npm run build-dev
 ```
 
 ## Concept
+
+This Realtime webapplication is all about  Sharing is Caring. Making use of the Spotify API users can share theyre favorite songs or even listen to it together. The Application is also looking for the popularity of the song which then would be added as a recommendation for the users. 
+
 ## API
+
+Spotify API is free to use if you have an account exisiting account. The authentication is via [OAuth 2.0](https://oauth.net/articles/authentication/) which needs te following:
+
+__1. Client Id
+2. Client Secret
+3. Redirect uri__
+
+The easy part of the whole access is probably getting a Developer account from [Spotify developer](https://developer.spotify.com/dashboard/). Creating an app in the __Dashboard__ and getting the keys.
+> _*Note_ The redirect uri need to be added in the developer.spotify where you have added you application. And place the uri in the settings.
+
+The Api itself needs to redirect you to spotify login screen. Here you can basically give authorication that the application can and may use data from the account that has been logged in.
+
+### Enviroment 
+
+To access the Spotify API there is set of keys that is __important__ to place in the enviroment file. This way only `you` have access to your linked account. The `.env`-file can be accessed using a packaged `npm i dotenv`.
+
+Spotify Env-file Example: 
+```env
+CLIENT_ID='client id'
+CLIENT_SECRET='client secret'
+REDIRECT_URI='host redirection'
+```
+
+To use this in the server you only have to call it.
+
+```js
+// require package
+require('dotenv').config()
+
+// important to copy exactly from the env. The file is 
+// space and case sensitive. *Note don't place "-" in then env, instead use under lines.
+const client_id = process.env.CLIENT_ID
+const client_secret = process.env.CLIENT_SECRET
+const redirect_uri = process.env.REDIRECT_URI
+
+
+```
+
+### Endpoints
+
+```
+Base url: 
+https://api.spotify.com/v1/me
+
+Endpoints
+/player/currently-playing
+
+```
+
 ## Data
+
+Data example
+```json
+timestamp: 1587389364804
+context: null
+artists: (2) [{…}, {…}]
+name: "Say Less"
+popularity: 58
+is_playing: true
+```
+
+
+## Data lifecycle
+![Imgur](https://i.imgur.com/tePPSxl.jpg)
+<img src="/public/assets/img/datalife.png">
+
 ## Features
 ## Sources
 ## Credits

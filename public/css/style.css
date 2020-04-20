@@ -3,7 +3,8 @@
     padding: 0;
     box-sizing: border-box;
 }
-body{
+
+body {
     font-family: Roboto;
 }
 
@@ -15,6 +16,7 @@ section.enter-user {
     width: 100vw;
     z-index: 1;
 }
+
 form#name-form {
     margin: 2em;
     top: 50%;
@@ -59,6 +61,14 @@ input#name-value:focus {
 /* input#name-value:hover {
 box-shadow: inset -5px -5px 0px 1px aliceblue;
 } */
+.bar {
+    fill: steelblue;
+}
+
+.bar:hover {
+    fill: brown;
+}
+
 section.chat-container {
     background: #bee1e5;
     position: relative;
@@ -70,6 +80,7 @@ section.chat-container {
     top: 2em;
     box-shadow: 6px 4px 0px 0px #eaeaea;
 }
+
 article.chat-msg {
     margin: 1em;
     background: white;
@@ -85,12 +96,13 @@ ul#messages {
     height: 100%;
     overflow: scroll;
 }
+
 #messages li:nth-child(odd) {
     background: #f2f2f8;
 }
 
 #messages li {
-    padding:.6em;
+    padding: .6em;
 }
 
 form#chat-form {
@@ -98,11 +110,13 @@ form#chat-form {
     position: relative;
     text-align: center;
 }
+
 input#input-msg {
     width: 80%;
     height: 3em;
     position: relative;
 }
+
 .chat-input button {
     height: 3em;
     width: 80%;
@@ -123,6 +137,6 @@ button#leave {
     position: relative;
 }
 
-img{
-    width:13em;
+img {
+    width: 13em;
 }
