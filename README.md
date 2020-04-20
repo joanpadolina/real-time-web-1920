@@ -13,6 +13,7 @@ During this course you will learn how to build a **meaningful** real-time applic
 1. __[API](#api)__
 1. __[Data](#data)__
 1. __[Data lifecycle](#data-lifecycle)__
+1. __[Dependencies](#dependencies)__
 1. __[Features](#features)__
 1. __[Sources](#sources)__
 1. __[Credits](#credits)__
@@ -119,8 +120,30 @@ is_playing: true
 ![Imgur](https://i.imgur.com/tePPSxl.jpg)
 <img src="/public/assets/img/datalife.png">
 
+## Dependencies
+* cookie-parser
+* cors
+* dotenv
+* ejs
+* express
+* node-fetch
+* nodemon
+* querystring
+* request
+* socket.io
+* spotify-web-api-node
+
 ## Features
+
+// Wishlist
+
+* Listen to a song together
+* Make a playlist
+* Show who is currently listening to what song
+* Make suggestions ( most played, popularity)
+
 ## Sources
+
 ## Credits
 
 
