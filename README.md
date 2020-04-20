@@ -49,6 +49,16 @@ npm run dev
 npm run build-dev
 ```
 
+* .env
+
+```
+CLIENT_ID='client id'
+CLIENT_SECRET='client secret'
+REDIRECT_URI='host redirection'
+```
+
+`node server.js listening on PORT: 5000`
+
 ## Concept
 
 This Realtime webapplication is all about  Sharing is Caring. Making use of the Spotify API users can share theyre favorite songs or even listen to it together. The Application is also looking for the popularity of the song which then would be added as a recommendation for the users. 
