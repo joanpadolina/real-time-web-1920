@@ -57,9 +57,9 @@ This Realtime webapplication is all about  Sharing is Caring. Making use of the 
 
 Spotify API is free to use if you have an account exisiting account. The authentication is via [OAuth 2.0](https://oauth.net/articles/authentication/) which needs te following:
 
-__1. Client Id
-2. Client Secret
-3. Redirect uri__
+1. Client Id
+1. Client Secret
+1. Redirect uri
 
 The easy part of the whole access is probably getting a Developer account from [Spotify developer](https://developer.spotify.com/dashboard/). Creating an app in the __Dashboard__ and getting the keys.
 > _*Note_ The redirect uri need to be added in the developer.spotify where you have added you application. And place the uri in the settings.
