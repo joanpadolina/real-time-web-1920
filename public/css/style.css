@@ -73,7 +73,7 @@ section.chat-container {
     background: #bee1e5;
     position: relative;
     display: block;
-    width: 30em;
+    width: 20em;
     margin: auto;
     border-radius: 1em;
     border: 1px solid #cccccc;
@@ -82,7 +82,7 @@ section.chat-container {
 }
 
 article.chat-msg {
-    margin: 1em;
+    margin: 0.5em;
     background: white;
     border-radius: 1em;
     height: 70vh;
@@ -103,8 +103,9 @@ ul#messages {
 
 #messages li {
     padding: .8em;
+    display: inline-block;
+    width: 100%;
 }
-
 form#chat-form {
     margin: auto;
     position: relative;
@@ -141,9 +142,10 @@ img {
     width: 13em;
 }
 
-.profile{
-    border-radius: 9em;
+.profile-one {
     width: 3em;
+    border-radius: 3em;
+    height: 3em;
     float: right;
     top: 1.7em;
     position: relative;
@@ -153,75 +155,66 @@ img {
     display: inline-block;
 
 }
+.chat-one {
+    position: relative;
+    width: 77%;
+    display: inline-block;
+}
 .chat-one p {
     background: #29348e;
-
     color: white;
     text-align: right;
     position: relative;
-    
     display: inline-block;
-    
-    border-radius: 3em;
-    
-    margin-left: 2em;
-    
+    border-radius: 0.6em;
     padding: 0.6em;
     word-wrap: break-word;
-    width: 19em;
+    width: 100%;
 }
 .chat-one span, .chat-two span{
     position: relative;
     color: grey;
     display: block;
-    left: 1em;
+    left: 0;
     top: 0em;
-    width: 50%;
     font-size: 0.8em;
     padding: .2em 0 0.6em;
     text-align: right;
     margin: auto;
 }
 
+img.profile-two {
+    width: 3em;
+    border-radius: 3em;
+    height: 3em;
+    position: relative;
+    display: inline-block;
+    top: 0.7em;
+}
 .chat-two span{
     float:left;
     text-align:left;
 }
 
 .chat-two {
-
     display: inline-block;
-    width: 100%;
+    width: 78%;
     position: relative;
-
-
 }
 
-.chat-two p{
-
+.chat-two p {
     background: #d04761;
-
-    padding: 0.7em;
-    
+    padding: 0.5em;
     position: relative;
-    
     text-align: left;
-    
     word-wrap: break-word;
-    
     margin-bottom: 1em;
-    
-    width: 20em;
-    
+    width: 100%;
     display: inline-block;
-    
-    color:white;
-    left: 1em;
-
+    color: white;
 }
 
 .chat-two img {
-
     float: left;
 
 }
@@ -255,6 +248,31 @@ li.broad-chat {
     bottom: 0em;
     right: 0;
     animation: remove-cast 700ms ease-in-out 1;
+}
+
+/* songs styling */
+
+ul#songs {
+    list-style-type: none;
+    overflow: scroll;
+    height: 100%;
+}
+#songs li {
+    display: inline-block;
+    width: 100%;
+    position: relative;
+    padding: 1em;
+}
+img.albumcover {
+    width: 5em;
+    float: left;
+    margin-right: 2em;
+}
+
+.tracks:hover{
+    cursor: pointer;
+    border:1px solid white;
+    transition:400ms ease-in-out;
 }
 
 @keyframes remove-cast{

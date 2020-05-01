@@ -11,7 +11,7 @@ require('dotenv').config()
 //     clientSecret: process.env.CLIENT_SECRET
 // })
 
-async function onConnect(socket){
+async function onConnect(socket) {
 
     let user = []
     let thisUser
@@ -23,23 +23,19 @@ async function onConnect(socket){
     console.log('Server side : a user connected')
 
     socket.on('new-user', data => {
-        const newUser = {
-            name: data.name,
-            img: data.images
-        }
-        user.push(newUser)
+        // console.log('server', data)
+        user.push(data)
+        // console.log(newUser)
         socket.emit('user-connected', data)
-
         socket.broadcast.emit('user-connected', data)
     })
 
     socket.on('send-chat-message', message => {
         let newMsg = blackList(message)
-
         socket.emit('own-message', {
             name: 'You',
             newMsg,
-            img:message.image
+            img: message.image
         })
         // async () => {
         //     let data = await get(message)
@@ -47,7 +43,7 @@ async function onConnect(socket){
         // }
         socket.broadcast.emit('other-message', {
             name: message.name,
-            img:message.image,
+            img: message.image,
             newMsg
         })
     })
@@ -62,17 +58,22 @@ async function onConnect(socket){
 
             // show command result to self
             socket.emit('command-message', {
-                message,newMessage: newMessage.data
+                message,
+                newMessage: newMessage.data
             })
 
             // broadcast command result to others
             socket.broadcast.emit('command-message', {
-                message,newMessage: newMessage.data
+                message,
+                newMessage: newMessage.data
             })
         }
     })
     socket.on('search-spotify', async (data) => {
         socket.emit('search-spotify', data)
+    })
+    socket.on('select song', data => {
+        console.log('yeet', data)
     })
     // socket.on('typing', (data) => {
     //     io.emit('typing', thisUser.name)

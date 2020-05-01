@@ -50,34 +50,49 @@ async function search(searchQuery) {
 
     const response = await fetch(url, options)
     const data = await response.json()
-    console.log(data)
     return data
 
 }
 
+async function cleanUserData(token) {
+    let data = await fetchWithToken(token)
+    // console.log(data)
+    let user = {
+        name: data.display_name
+    }
+    if (data.images[0]) {
+        user.img = data.images[0].url
+    } else {
+        user.img = "https://www.groningen-seaports.com/wp-content/uploads/placeholder.jpg"
+    }
+    return user
+}
 
 
 if (access_token) {
 
     async function init() {
-        let data = await fetchWithToken(access_token)
+        // let data = await fetchWithToken(access_token)
+        let data = await cleanUserData(access_token)
         // console.log('data', data)
 
         socket.on('connect', () => {
             socket.emit('new-user', {
-                name: data.display_name,
-                image: data.images[0].url
+                name: data.name,
+                image: data.img
             })
-            img.src = `${data.images[0].url}`
+            img.src = `${data.img}`
         })
-
+        // connection new user 
+        socket.on('user-connected', data => {
+            appendMessage(`${data.name} has joined the chat`)
+        })
         messageForm.addEventListener('submit', e => {
             e.preventDefault()
             let message = messageInput.value
 
             if (message[0] === '/') {
                 let sliceMsg = message.slice(3)
-                console.log(sliceMsg)
                 message = sliceMsg
                 socket.emit('message command', sliceMsg)
 
@@ -85,12 +100,16 @@ if (access_token) {
 
             socket.emit('send-chat-message', {
                 message,
-                name: data.display_name,
-                image: data.images[0].url
+                name: data.name,
+                image: data.img
             })
+
             messageInput.value = ''
         })
 
+        socket.on('server message', data => {
+            appendMessage(data)
+        })
 
     }
     init()
@@ -106,14 +125,11 @@ if (access_token) {
 
 appendMessage('You joined')
 
-// connection new user 
-socket.on('user-connected', data => {
-    console.log(data)
-    appendMessage(`${data.name} has joined the chat`)
-})
-socket.on('server message', data => {
-    appendMessage(data)
-})
+// // connection new user 
+// socket.on('user-connected', data => {
+//     console.log(data)
+//     appendMessage(`${data.name} has joined the chat`)
+// })
 
 // chat messages receving
 socket.on('own-message', data => {
@@ -122,36 +138,38 @@ socket.on('own-message', data => {
     let name = data.name
     let message = data.newMsg
     let className = "chat-one"
+    let nameProfile = "profile-one"
 
-    chatMessage(imgSrc, name, message, className)
+    chatMessage(imgSrc, name, message, className, nameProfile)
 
     msgContainer.scrollTop = msgContainer.scrollHeight;
 
 })
 
-function chatMessage(source, name, message, className) {
+function chatMessage(source, name, message, className, nameProfile) {
     const msgContainer = document.getElementById('messages')
     msgContainer.insertAdjacentHTML('beforeend', `
-        <li>
-        <div class="${className}">
-        <img class="profile" src="${source}">
-        <span>${name}</span>
-        <p>
-        ${message}
-        </p>
-        </div>
+        <li>            
+            <img class="${nameProfile}" src="${source}">
+            <div class="${className}">
+                <span>${name}</span>
+                <p>
+                ${message}
+                </p>
+            </div>
         </li>
         `)
 }
 
 socket.on('other-message', data => {
-
+    const msgContainer = document.getElementById('messages')
     let imgSrc = data.img
     let name = data.name
     let message = data.newMsg
     let className = "chat-two"
+    let nameProfile = "profile-two"
 
-    chatMessage(imgSrc, name, message, className)
+    chatMessage(imgSrc, name, message, className, nameProfile)
 
     msgContainer.scrollTop = msgContainer.scrollHeight;
 })
@@ -182,31 +200,75 @@ socket.on('user-disconnected', data => {
     appendMessage(`${data.name} disconnected`)
 })
 
+
+// song inputvalue
+searchSong.addEventListener('submit', (e) => {
+    e.preventDefault()
+    let songValue = inputSong.value
+    socket.emit('search-spotify', songValue)
+})
+
 if (searchSong) {
     socket.on('search-spotify', async data => {
-        const value = data
-        const songFetch = await fetch(`/api/search?q=${value}`)
-        const tracks = await songFetch.json()
+        let songs = await fetchSongs(data)
+        appendSongToList(songs)
+        socket.emit('search-spotify', songs)
+    })
+}
+socket.on('select song', async data => {
+    let songs = await fetchSongs(data)
+    const songlist = document.getElementById('songs')
 
-        // const artistImg = tracks.album.images[0]
-        // const name = tracks.artist[0].name
-        // const title = tracks.name
-        // let tryHard = tracks.forEach(item => console.log(item.artist))
-        console.log('tracht',tracks.map(e => {
-            return e
-        //    return {
-        //        artist : e.artist[0].name,
-        //        song: e.name
-        //    }
-        }))
-        return tracks
+    console.log('help', songs)
+    // socket.emit('select song', songs)
+})
+
+
+// fetch songs 
+async function fetchSongs(data) {
+    const value = data
+    const songFetch = await fetch(`/api/search?q=${value}`)
+    const tracks = await songFetch.json()
+    const newData = cleanData(tracks)
+    return newData
+}
+// clean tracks
+async function cleanData(data) {
+    let tracks = await data.map(item => {
+        return {
+            artists: item.artists[0].name,
+            song: item.name,
+            img: item.album.images[0].url,
+            preview: item.preview_url,
+            duration: msToMinutes(item.duration_ms),
+            popularity: item.popularity
+        }
+    })
+    return tracks
+}
+
+// creating list out of tracks
+async function appendSongToList(tracks) {
+    let data = await tracks
+    data.forEach(item => {
+        songUl.insertAdjacentHTML('beforeend', `
+        <li class="tracks">
+            <img class="albumcover" src="${item.img}">
+            <div class="info">
+                    <h2>
+                    ${item.artists} 
+                    </h2>
+                    <p>
+                    ${item.song}
+                    </p>
+                    <span>duration: ${item.duration}</span>
+            </div>
+        </li>`)
     })
 }
 
-socket.on('search-spotiy', data => {
-    console.log(data,'haha')
-})
-function songList(name, title){
+// insert song results to DOM
+function songList(name, title) {
     songUl.insertAdjacentHTML('beforeend', `
     <li>
         <div class="album-contain">
@@ -217,14 +279,10 @@ function songList(name, title){
         </div>
     </li>`)
 }
-searchSong.addEventListener('submit', (e) => {
-    e.preventDefault()
-    let songValue = inputSong.value
-    socket.emit('search-spotify', songValue)
-})
 
 
 
+// broadcast messages
 async function appendMessage(message, data) {
     const msgContainer = document.getElementById('messages')
     const li = document.createElement('li')
@@ -250,6 +308,7 @@ const usernameForm = document.querySelector('.enter-user')
 removeUsername.addEventListener('click', () => {
     usernameForm.style.display = 'none'
 })
+
 // leave or reset button
 const leaveButton = document.querySelector('#leave')
 leaveButton.addEventListener('click', () => {
@@ -267,7 +326,7 @@ function whiteList(data) {
         appendMessage('nooo')
     }
 }
-
+// giphy add on command
 function appendGif(data) {
     let dataImg = data[0].images.original.url
     let img = document.createElement('img')
@@ -279,6 +338,7 @@ function appendGif(data) {
     return div
 }
 
+//animation for userconnection
 function broadCastDissaper() {
     let cast = document.querySelectorAll('.broad-chat')
     cast.forEach((li) => {
@@ -293,4 +353,11 @@ function broadCastDissaper() {
 
 }
 
+// ms to minutes
+//https://stackoverflow.com/questions/21294302/converting-milliseconds-to-minutes-and-seconds-with-javascript
+function msToMinutes(millis) {
+    let minutes = Math.floor(millis / 60000);
+    let seconds = ((millis % 60000) / 1000).toFixed(0);
+    return minutes + ":" + (seconds < 10 ? '0' : '') + seconds;
+}
 emitter.setMaxListeners()
