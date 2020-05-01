@@ -8,9 +8,7 @@
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "dev": "nodemon server.js rollup -c --watch",
-    "start": "rollup -c --watch  npm run dev",
-    "test1": "/public/js/bundle.js"
+    "dev": "nodemon server.js"
   },
   "repository": {
     "type": "git",
