@@ -97,12 +97,12 @@ ul#messages {
     overflow: scroll;
 }
 
-#messages li:nth-child(odd) {
+/* #messages li:nth-child(odd) {
     background: #f2f2f8;
-}
+} */
 
 #messages li {
-    padding: .6em;
+    padding: .8em;
 }
 
 form#chat-form {
@@ -139,4 +139,170 @@ button#leave {
 
 img {
     width: 13em;
+}
+
+.profile{
+    border-radius: 9em;
+    width: 3em;
+    float: right;
+    top: 1.7em;
+    position: relative;
+}
+.chat-msg-one {
+    width: 100%;
+    display: inline-block;
+
+}
+.chat-one p {
+    background: #29348e;
+
+    color: white;
+    text-align: right;
+    position: relative;
+    
+    display: inline-block;
+    
+    border-radius: 3em;
+    
+    margin-left: 2em;
+    
+    padding: 0.6em;
+    word-wrap: break-word;
+    width: 19em;
+}
+.chat-one span, .chat-two span{
+    position: relative;
+    color: grey;
+    display: block;
+    left: 1em;
+    top: 0em;
+    width: 50%;
+    font-size: 0.8em;
+    padding: .2em 0 0.6em;
+    text-align: right;
+    margin: auto;
+}
+
+.chat-two span{
+    float:left;
+    text-align:left;
+}
+
+.chat-two {
+
+    display: inline-block;
+    width: 100%;
+    position: relative;
+
+
+}
+
+.chat-two p{
+
+    background: #d04761;
+
+    padding: 0.7em;
+    
+    position: relative;
+    
+    text-align: left;
+    
+    word-wrap: break-word;
+    
+    margin-bottom: 1em;
+    
+    width: 20em;
+    
+    display: inline-block;
+    
+    color:white;
+    left: 1em;
+
+}
+
+.chat-two img {
+
+    float: left;
+
+}
+
+img.gif-img {
+    width: 100%;
+    height: 11em;
+    position: relative;
+    object-fit: cover;
+    border-radius: 1em;
+}
+
+li.broad-chat {
+    position: relative;
+    font-size: 0.8em;
+    text-align: center;
+    background: rgb(2, 2, 51);
+    color: rgb(152, 226, 152);
+    opacity: 1;
+    bottom: 0em;
+    right: 0;
+    animation: reveal-cast 400ms ease-in-out 1;
+}
+.show-login{
+    position: relative;
+    font-size: 0.8em;
+    text-align: center;
+    background: rgb(2, 2, 51);
+    color: rgb(152, 226, 152);
+    opacity: 1;
+    bottom: 0em;
+    right: 0;
+    animation: remove-cast 700ms ease-in-out 1;
+}
+
+@keyframes remove-cast{
+    0%{
+        right:0;
+        opacity: 1;
+    }
+    50%{
+        opacity: 0;
+    }
+    100%{
+        opacity: 0;
+        right:2em;
+    }
+}
+
+@keyframes reveal-cast{
+    0%{
+        bottom:-1em;
+        opacity: 0;
+    }
+    50%{
+        opacity: 1;
+    }
+    100%{
+        opacity: 1;
+        bottom:0em;
+    }
+}
+
+/* li.broad-chat:nth-child(odd) {
+    background:gray;
+} */
+
+.container {
+    /* background: red; */
+    display: flex;
+}
+
+section.search-song {
+    height: 40em;
+    background: green;
+    width: 30em;
+    position: relative;
+}
+
+section.playlist {
+    background: purple;
+    height: 40em;
+    width: 30em;
 }

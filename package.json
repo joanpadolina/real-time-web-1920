@@ -34,6 +34,7 @@
   "homepage": "https://github.com/joanpadolina/real-time-web-1920#readme",
   "dependencies": {
     "concurrently": "^5.1.0",
+    "cookie": "^0.4.1",
     "cookie-parser": "^1.4.5",
     "cors": "^2.8.5",
     "d3": "^5.15.1",
@@ -41,6 +42,7 @@
     "ejs": "^3.0.2",
     "express": "^4.17.1",
     "jsdom": "^16.2.2",
+    "jsonwebtoken": "^8.5.1",
     "node-fetch": "^2.6.0",
     "nodemon": "^2.0.2",
     "querystring": "^0.2.0",

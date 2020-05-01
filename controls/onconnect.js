@@ -1,4 +1,15 @@
 const get = require('./api')
+const spotify = require('./spotify_api')
+const SpotifyWebApi = require('spotify-web-api-node')
+const getCurrentSong = require('./getSong')
+
+const search = require('./spotify_fetch')
+require('dotenv').config()
+
+// const spotifyApi = new SpotifyWebApi({
+//     clientId: process.env.CLIENT_ID,
+//     clientSecret: process.env.CLIENT_SECRET
+// })
 
 async function onConnect(socket){
 
@@ -11,32 +22,32 @@ async function onConnect(socket){
 
     console.log('Server side : a user connected')
 
-    socket.on('new-user', name => {
+    socket.on('new-user', data => {
         const newUser = {
-            id: socket.id,
-            name: name
+            name: data.name,
+            img: data.images
         }
         user.push(newUser)
-        thisUser = newUser
+        socket.emit('user-connected', data)
 
-        socket.emit('user-connected', name)
-        socket.broadcast.emit('user-connected', name)
+        socket.broadcast.emit('user-connected', data)
     })
 
     socket.on('send-chat-message', message => {
-
         let newMsg = blackList(message)
 
-        socket.emit('chat-message', {
+        socket.emit('own-message', {
             name: 'You',
             newMsg,
+            img:message.image
         })
-        async () => {
-            let data = await get(message)
-            console.log(data)
-        }
-        socket.broadcast.emit('chat-message', {
-            name: thisUser.name,
+        // async () => {
+        //     let data = await get(message)
+        //     console.log('hi',data)
+        // }
+        socket.broadcast.emit('other-message', {
+            name: message.name,
+            img:message.image,
             newMsg
         })
     })
@@ -60,6 +71,9 @@ async function onConnect(socket){
             })
         }
     })
+    socket.on('search-spotify', async (data) => {
+        socket.emit('search-spotify', data)
+    })
     // socket.on('typing', (data) => {
     //     io.emit('typing', thisUser.name)
     // })
@@ -68,6 +82,9 @@ async function onConnect(socket){
         socket.emit('user-disconnected', thisUser)
     })
 }
+
+
+
 
 // mikael helped with the regex
 function blackList(data) {

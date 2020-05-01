@@ -1,7 +1,9 @@
 const fetch = require('node-fetch')
 
 async function getCurrentSong(req, res) {
+
     const access_token = req.query.access_token
+    
     const headers = {
         method: 'get',
         headers: {

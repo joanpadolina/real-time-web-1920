@@ -4,20 +4,25 @@
 <!-- <svg width="960" height="500"></svg> -->
 
 <section class="logspotify">
-    <button><a href="/login">Log in to your spotify</a></button>
+    <button class="btn-login"><a href="/login">Log in to your spotify</a></button>
 </section>
 
-<section class="enter-user">
+<!-- <section class="enter-user">
     <form id="name-form" action="">
         <label for="name-value">username</label>
         <input id="name-value" autocomplete="off" /><button id="username" type="submit">enter</button>
     </form>
-</section>
+</section> -->
 
 <div id="feedback"></div>
+
+<div class="container">
+
+
 <section class="chat-container">
     <button id="leave">leave</button>
     <article class="chat-msg">
+        <!-- <img class="profile" src=""> -->
         <ul id="messages"></ul>
     </article>
 
@@ -31,4 +36,19 @@
     </div>
 </section>
 
+<section class="search-song">
+    <form id="searchSongs" action="">
+        <input id="numberSearch" placeholder="Search for a song">
+        <button class="button--form">Search</button>
+    </form>
+    <ul id="songs"></ul>
+</section>
+<section class="playlist">
+    <div class="quelist">
+        <audio id="audioPlayer"></audio>
+        <div class="progress" id="progress"></div>
+        <ul id="que"></ul>
+    </div>
+</section>
+</div>
 <%- include('partials/footer')  %>

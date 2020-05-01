@@ -3,29 +3,157 @@ const messageForm = document.getElementById('chat-form')
 const messageInput = document.getElementById('input-msg')
 const nameForm = document.getElementById('name-form')
 const getName = document.getElementById('name-value')
+const img = document.querySelector('img')
+const searchSong = document.querySelector('#searchSongs')
+const inputSong = document.querySelector('#numberSearch')
+const songUl = document.getElementById('songs')
 
 
+
+function getHashParams() {
+    let hashParams = {}
+    let e, r = /([^&;=]+)=?([^&;]*)/g
+    const q = window.location.hash.substring(1)
+    while (e = r.exec(q)) hashParams[e[1]] = decodeURIComponent(e[2])
+    return hashParams
+}
+
+const params = getHashParams();
+const access_token = params.access_token
+const refresh_token = params.refresh_token
+
+async function fetchWithToken(token) {
+    const options = {
+        headers: {
+            'Authorization': 'Bearer ' + token
+        },
+        json: true
+    }
+    const url = 'https://api.spotify.com/v1/me'
+    const response = await fetch(url, options)
+    const data = await response.json();
+    return data
+}
+
+async function search(searchQuery) {
+
+    const token = access_token
+    const query = searchQuery
+
+    const url = `https://api.spotify.com/v1/search?${query}`
+    const options = {
+        method: 'GET',
+        headers: {
+            'Authorization': `Bearer ${token}`
+        }
+    }
+
+    const response = await fetch(url, options)
+    const data = await response.json()
+    console.log(data)
+    return data
+
+}
+
+
+
+if (access_token) {
+
+    async function init() {
+        let data = await fetchWithToken(access_token)
+        // console.log('data', data)
+
+        socket.on('connect', () => {
+            socket.emit('new-user', {
+                name: data.display_name,
+                image: data.images[0].url
+            })
+            img.src = `${data.images[0].url}`
+        })
+
+        messageForm.addEventListener('submit', e => {
+            e.preventDefault()
+            let message = messageInput.value
+
+            if (message[0] === '/') {
+                let sliceMsg = message.slice(3)
+                console.log(sliceMsg)
+                message = sliceMsg
+                socket.emit('message command', sliceMsg)
+
+            }
+
+            socket.emit('send-chat-message', {
+                message,
+                name: data.display_name,
+                image: data.images[0].url
+            })
+            messageInput.value = ''
+        })
+
+
+    }
+    init()
+
+}
 // first name login
-nameForm.addEventListener('submit', e => {
-    e.preventDefault()
-    const thisName = getName.value
-    socket.emit('new-user', thisName)
-})
+
+// nameForm.addEventListener('submit', e => {
+//     e.preventDefault()
+//     const thisName = getName.value
+//     socket.emit('new-user', thisName)
+// })
 
 appendMessage('You joined')
 
 // connection new user 
 socket.on('user-connected', data => {
-    appendMessage(`${data} has joined the chat`)
+    console.log(data)
+    appendMessage(`${data.name} has joined the chat`)
 })
 socket.on('server message', data => {
     appendMessage(data)
 })
 
 // chat messages receving
-socket.on('chat-message', data => {
-    // console.log('chat', data)
-    appendMessage(`${data.name}: ${data.newMsg}`)
+socket.on('own-message', data => {
+    const msgContainer = document.getElementById('messages')
+    let imgSrc = data.img
+    let name = data.name
+    let message = data.newMsg
+    let className = "chat-one"
+
+    chatMessage(imgSrc, name, message, className)
+
+    msgContainer.scrollTop = msgContainer.scrollHeight;
+
+})
+
+function chatMessage(source, name, message, className) {
+    const msgContainer = document.getElementById('messages')
+    msgContainer.insertAdjacentHTML('beforeend', `
+        <li>
+        <div class="${className}">
+        <img class="profile" src="${source}">
+        <span>${name}</span>
+        <p>
+        ${message}
+        </p>
+        </div>
+        </li>
+        `)
+}
+
+socket.on('other-message', data => {
+
+    let imgSrc = data.img
+    let name = data.name
+    let message = data.newMsg
+    let className = "chat-two"
+
+    chatMessage(imgSrc, name, message, className)
+
+    msgContainer.scrollTop = msgContainer.scrollHeight;
 })
 
 // music 
@@ -54,38 +182,66 @@ socket.on('user-disconnected', data => {
     appendMessage(`${data.name} disconnected`)
 })
 
-messageForm.addEventListener('submit', e => {
-    e.preventDefault()
-    let message = messageInput.value
+if (searchSong) {
+    socket.on('search-spotify', async data => {
+        const value = data
+        const songFetch = await fetch(`/api/search?q=${value}`)
+        const tracks = await songFetch.json()
 
-    if (message[0] ==='/') {
-        let sliceMsg = message.slice(3)
-        console.log(sliceMsg)
-        message = sliceMsg
-        socket.emit('message command', sliceMsg)
-
-    }
-  
-    socket.emit('send-chat-message', {
-        message,
-        name
+        // const artistImg = tracks.album.images[0]
+        // const name = tracks.artist[0].name
+        // const title = tracks.name
+        // let tryHard = tracks.forEach(item => console.log(item.artist))
+        console.log('tracht',tracks.map(e => {
+            return e
+        //    return {
+        //        artist : e.artist[0].name,
+        //        song: e.name
+        //    }
+        }))
+        return tracks
     })
-    messageInput.value = ''
+}
+
+socket.on('search-spotiy', data => {
+    console.log(data,'haha')
+})
+function songList(name, title){
+    songUl.insertAdjacentHTML('beforeend', `
+    <li>
+        <div class="album-contain">
+        <div class="info">
+        <span>${name}</span>
+        <p>${title} </p>
+        </div>
+        </div>
+    </li>`)
+}
+searchSong.addEventListener('submit', (e) => {
+    e.preventDefault()
+    let songValue = inputSong.value
+    socket.emit('search-spotify', songValue)
 })
 
-function appendMessage(message, data) {
-    const msgContainer = document.getElementById('messages')
-    const msgElement = document.createElement('li')
 
+
+async function appendMessage(message, data) {
+    const msgContainer = document.getElementById('messages')
+    const li = document.createElement('li')
     if (data) {
-        msgElement.appendChild(appendGif(data))
-        msgContainer.append(msgElement)
+        li.appendChild(appendGif(data))
+        msgContainer.append(li)
     } else {
-        msgElement.innerText = message
-        msgContainer.append(msgElement)
+        li.innerText = message
+        li.classList.add('broad-chat')
+        msgContainer.append(li)
+
     }
+    broadCastDissaper()
     msgContainer.scrollTop = msgContainer.scrollHeight;
 }
+
+
 
 // remove add username
 const removeUsername = document.getElementById('username')
@@ -115,7 +271,26 @@ function whiteList(data) {
 function appendGif(data) {
     let dataImg = data[0].images.original.url
     let img = document.createElement('img')
+    let div = document.createElement('div')
+    div.appendChild(img)
+    div.classList.add('contain-div')
+    img.classList.add('gif-img')
     img.src = dataImg
-    return img
+    return div
 }
 
+function broadCastDissaper() {
+    let cast = document.querySelectorAll('.broad-chat')
+    cast.forEach((li) => {
+        setTimeout(() => {
+            // li.classList.remove('broad-chat')
+            li.classList.replace('broad-chat', 'show-login')
+        }, 5000)
+        setTimeout(() => {
+            li.remove()
+        }, 5500)
+    })
+
+}
+
+emitter.setMaxListeners()
