@@ -107,6 +107,7 @@ async function onConnect(socket) {
     // console.log(queList)
     socket.on('stream', (data) => {
         socket.emit('stream', queList)
+        socket.broadcast.emit('stream', queList)
     })
 
     socket.on('remove from que', (name) => {
