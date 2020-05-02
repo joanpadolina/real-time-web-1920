@@ -28,9 +28,24 @@ async function search(req, searchQuery) {
 
     const response = await fetch(url, options)
     const data = await response.json()
-    // const track = await data.tracks
-    // console.log('search',track)
-    return data
+    const track = await data.tracks
+    return track
+
+}
+
+async function addToQue(req, id){
+    const token = decryptJWT(req.cookies[cookies.ACCESS_TOKEN])
+
+    const query = querystring.stringify({id})
+    const options = {
+		method: 'POST',
+		headers: {
+			'Authorization': `Bearer ${decryptJWT(token)}`
+		}
+    }
+    
+    const response = await fetch(`https://api.spotify.com/v1/me/player/queue?${query}`, options)
+    console.log(response)
 
 }
 
@@ -40,13 +55,13 @@ async function dataResponse(req, res) {
 
     if (searchQuery) {
         const data = await search(req, searchQuery)
-        // console.log(data)
-        res.json(data.tracks.items)
+        // console.log(data.items)
+        res.json(data.items)
     }
     // const item = await res.json(data.tracks.items)
     // res.json(data.items)
 }
 
 module.exports = {
-    dataResponse
+    dataResponse, addToQue
 }

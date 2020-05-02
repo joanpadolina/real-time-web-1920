@@ -223,7 +223,6 @@ async function searchSong(token, searchQuery) {
 
     const response = await fetch(url, options)
     const data = await response.json()
-    // console.log(data)
     return data
 
 }
@@ -248,7 +247,6 @@ async function search(req, searchQuery) {
 
     const response = await fetch(url, options)
     const data = await response.json()
-    console.log(data)
     return data
 
 }

@@ -7,6 +7,8 @@ const img = document.querySelector('img')
 const searchSong = document.querySelector('#searchSongs')
 const inputSong = document.querySelector('#numberSearch')
 const songUl = document.getElementById('songs')
+const queList = document.getElementById('que')
+const audioPlayer = document.getElementById('audioPlayer');
 
 
 
@@ -202,26 +204,116 @@ socket.on('user-disconnected', data => {
 
 
 // song inputvalue
-searchSong.addEventListener('submit', (e) => {
+searchSong.addEventListener('submit', async (e) => {
     e.preventDefault()
     let songValue = inputSong.value
-    socket.emit('search-spotify', songValue)
-})
+    let songs = await fetchSongs(songValue)
 
-if (searchSong) {
-    socket.on('search-spotify', async data => {
-        let songs = await fetchSongs(data)
-        appendSongToList(songs)
-        socket.emit('search-spotify', songs)
+    removePreviousResulst(songUl)
+    appendSongToList(songs)
+
+
+    // for(let song of songs){
+    //     let id = song.id
+    //     console.log(song)
+    // }
+
+    socket.emit('search-spotify', {
+        songValue
     })
-}
-socket.on('select song', async data => {
-    let songs = await fetchSongs(data)
-    const songlist = document.getElementById('songs')
-
-    console.log('help', songs)
-    // socket.emit('select song', songs)
+    socket.emit('select song', songs)
 })
+
+socket.on('select song', data => {
+    let list = document.querySelectorAll('.tracks')
+    list.forEach(i => {
+        i.addEventListener('click', () => {
+            for (let song of data) {
+                if (i.id == song.id) {
+                    socket.emit('add que', song)
+                }
+
+            }
+
+        })
+    })
+})
+socket.on('add que', data => {
+console.log(data,'quesd')
+    appendSongToQue(data)
+    // socket.emit('quelist', data)
+    socket.emit('stream', data)
+
+})
+
+socket.on('stream', data => {
+    // let nestedData = data[0].item
+    console.log(data,'joan')
+    // audioPlayer.play()
+    // console.log(audioPlayer.currentTime)
+    console.log('stream', data.length)
+    if (data.length) {
+        console.log(data[0],'firstdata')
+            if (audioPlayer.currentTime == 0) {
+                if (data[0].item.preview) {
+                    console.log(data[0].item.preview)
+                    audioPlayer.src = data[0].item.preview
+                    const promise = audioPlayer.play()
+
+                    if (promise !== undefined) {
+
+                        promise.then(_ => {
+                            // Autoplay started!
+                        }).catch(error => {
+                            // console.log(error)
+                        })
+                    }
+                }
+            }
+
+        // console.log(nestedData)
+        audioPlayer.onended = function () {
+            audioPlayer.currentTime = 0
+            console.log(data.length, data,'nested')
+            if (data.length > 0) {
+                socket.emit('remove from que', data[0].item.id)
+            }
+        }
+
+    }
+
+    // audioPlayer.onended = function () {
+    //     audioPlayer.currentTime = 0
+
+    //     if (data.length > 0) {
+    //         socket.emit('remove from que', data.name)
+    //     }
+    // }
+})
+// if (searchSong) {
+//     socket.on('search-spotify', async data => {
+//         let songs = await fetchSongs(data)
+//         console.log('hier',songs)
+//         appendSongToList(songs)
+//         socket.emit('search-spotify', {songs})
+//     })
+// }
+// socket.on('select song', async data => {
+//     let songs = await fetchSongs(data)
+//     // for(let song of songs){
+//     //     let id = song.id
+//     //     console.log(song)
+//     //   id.addEventListener('click', ()=>{
+//     //       console.log('this')
+//     //   })
+//     // }
+//     // const songlist = document.getElementById('songs')
+//     console.log('help', songs)
+//     socket.emit('select song', songs)
+// })
+
+
+
 
 
 // fetch songs 
@@ -229,13 +321,15 @@ async function fetchSongs(data) {
     const value = data
     const songFetch = await fetch(`/api/search?q=${value}`)
     const tracks = await songFetch.json()
-    const newData = cleanData(tracks)
+    const newData = await cleanData(tracks)
     return newData
 }
 // clean tracks
 async function cleanData(data) {
+    // console.log(data)
     let tracks = await data.map(item => {
         return {
+            id: item.id,
             artists: item.artists[0].name,
             song: item.name,
             img: item.album.images[0].url,
@@ -251,8 +345,10 @@ async function cleanData(data) {
 async function appendSongToList(tracks) {
     let data = await tracks
     data.forEach(item => {
-        songUl.insertAdjacentHTML('beforeend', `
-        <li class="tracks">
+
+        if (item.preview != null) {
+            songUl.insertAdjacentHTML('beforeend', `
+        <li class="tracks" id="${item.id}">
             <img class="albumcover" src="${item.img}">
             <div class="info">
                     <h2>
@@ -264,7 +360,56 @@ async function appendSongToList(tracks) {
                     <span>duration: ${item.duration}</span>
             </div>
         </li>`)
+        }
     })
+}
+
+
+// creating  playlist
+async function appendSongToQue(tracks) {
+    //https://github.com/Mennauu/real-time-web-1819 from menau's code Concept: newMap
+    let newMap = [...new Map(tracks.map(obj => [JSON.stringify(obj), obj])).values()]
+    // console.log(newMap)
+
+    let addQue
+
+    for (let data of newMap) {
+        let item = data.item
+        if (item.preview != null) {
+            addQue += `
+        <li class="tracks" id="${item.id}">
+        <img class="albumcover" src="${item.img}">
+        <div class="info">
+                <h2>
+                ${item.artists} 
+                </h2>
+                <p>
+                ${item.song}
+                </p>
+                <span>duration: ${item.duration}</span>
+        </div>
+    </li>`
+        }
+    }
+
+
+    queList.innerHTML = addQue
+    // data.forEach(item => {
+    //     queList.insertAdjacentHTML('beforeend', `
+    //     <li class="tracks" id="${item.id}">
+    //         <img class="albumcover" src="${item.img}">
+    //         <div class="info">
+    //                 <h2>
+    //                 ${item.artists} 
+    //                 </h2>
+    //                 <p>
+    //                 ${item.song}
+    //                 </p>
+    //                 <span>duration: ${item.duration}</span>
+    //         </div>
+    //     </li>`)
+    // })
+
 }
 
 // insert song results to DOM
@@ -351,6 +496,14 @@ function broadCastDissaper() {
         }, 5500)
     })
 
+}
+
+// remove previous search results
+// Kris Kuipers
+function removePreviousResulst(parent) {
+    while (parent.firstChild) {
+        parent.removeChild(parent.firstChild);
+    }
 }
 
 // ms to minutes

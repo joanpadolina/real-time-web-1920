@@ -2,7 +2,9 @@ const get = require('./api')
 const spotify = require('./spotify_api')
 const SpotifyWebApi = require('spotify-web-api-node')
 const getCurrentSong = require('./getSong')
-
+const {
+    addQue
+} = require('./spotify_fetch')
 const search = require('./spotify_fetch')
 require('dotenv').config()
 
@@ -11,11 +13,27 @@ require('dotenv').config()
 //     clientSecret: process.env.CLIENT_SECRET
 // })
 
+
 async function onConnect(socket) {
 
     let user = []
     let thisUser
     let userAnon = 'anonymous'
+    let queList = []
+
+    const updateQueList = () => socket.emit('add que', queList)
+
+    const removeAfterPlaying = (name) => {
+
+        if (queList[0]) {
+            if (queList[0].item.id === name) {
+                queList.shift()
+                console.log('sdfsa', queList.length, name)
+                console.log(queList, queList.length, 'joan')
+                updateQueList()
+            }
+        }
+    }
 
     socket.emit('server message', `Someone is lurking`)
     socket.broadcast.emit('server message', `${userAnon} is connected`)
@@ -23,24 +41,22 @@ async function onConnect(socket) {
     console.log('Server side : a user connected')
 
     socket.on('new-user', data => {
-        // console.log('server', data)
+
         user.push(data)
-        // console.log(newUser)
+
         socket.emit('user-connected', data)
         socket.broadcast.emit('user-connected', data)
     })
 
     socket.on('send-chat-message', message => {
         let newMsg = blackList(message)
+
         socket.emit('own-message', {
             name: 'You',
             newMsg,
             img: message.image
         })
-        // async () => {
-        //     let data = await get(message)
-        //     console.log('hi',data)
-        // }
+
         socket.broadcast.emit('other-message', {
             name: message.name,
             img: message.image,
@@ -70,10 +86,31 @@ async function onConnect(socket) {
         }
     })
     socket.on('search-spotify', async (data) => {
+        // console.log('hi',data)
         socket.emit('search-spotify', data)
+        // socket.emit('select song', data)
     })
     socket.on('select song', data => {
-        console.log('yeet', data)
+        // console.log('yeet', data)
+        socket.emit('select song', data)
+    })
+    socket.on('add que', item => {
+        queList.push({
+            item
+        })
+        socket.emit('add que', queList)
+        socket.broadcast.emit('add que', queList)
+        // console.log(queList)
+
+        updateQueList()
+    })
+    // console.log(queList)
+    socket.on('stream', (data) => {
+        socket.emit('stream', queList)
+    })
+
+    socket.on('remove from que', (name) => {
+        removeAfterPlaying(name)
     })
     // socket.on('typing', (data) => {
     //     io.emit('typing', thisUser.name)
@@ -82,6 +119,8 @@ async function onConnect(socket) {
     socket.on('disconnect', () => {
         socket.emit('user-disconnected', thisUser)
     })
+
+
 }
 
 

@@ -47,8 +47,7 @@ app
     .get('/callback', spotify.callback)
     .get('/refresh-token', spotify.refreshToken)
     .get('/api/search', async(req,res) =>{
-        await searchRoute.dataResponse(req, res)
-        
+        await searchRoute.dataResponse(req,res)
     })
 
 io.on('connection', onConnect)

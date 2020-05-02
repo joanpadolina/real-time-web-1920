@@ -6,6 +6,7 @@
 
 body {
     font-family: Roboto;
+    background:rgb(45, 37, 94);
 }
 
 section.enter-user {
@@ -74,7 +75,6 @@ section.chat-container {
     position: relative;
     display: block;
     width: 20em;
-    margin: auto;
     border-radius: 1em;
     border: 1px solid #cccccc;
     top: 2em;
@@ -252,16 +252,27 @@ li.broad-chat {
 
 /* songs styling */
 
-ul#songs {
+ul#songs, ul#que {
     list-style-type: none;
     overflow: scroll;
     height: 100%;
 }
-#songs li {
+#songs li, #que li {
     display: inline-block;
     width: 100%;
     position: relative;
     padding: 1em;
+}
+.quelist {
+    height: 40em;
+}
+#que li {
+    background: white;
+    margin-bottom: 0.6em;
+    border-radius: 0.4em;
+}
+ul#que{
+    padding:1em;
 }
 img.albumcover {
     width: 5em;
@@ -274,6 +285,8 @@ img.albumcover {
     border:1px solid white;
     transition:400ms ease-in-out;
 }
+
+
 
 @keyframes remove-cast{
     0%{
@@ -308,19 +321,23 @@ img.albumcover {
 } */
 
 .container {
-    /* background: red; */
     display: flex;
+    width: 100%;
+    justify-content: space-around;
 }
 
 section.search-song {
     height: 40em;
-    background: green;
+    background: #a4e8a4;
     width: 30em;
     position: relative;
+    padding: 2em;
+    margin-right: 2em;
 }
 
 section.playlist {
-    background: purple;
+    background: #101010;
     height: 40em;
-    width: 30em;
+    width: 25em;
+    border-radius: 0.6em;
 }
