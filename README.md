@@ -1,6 +1,7 @@
 # Real-Time WebApplication
 
-![Imgur](https://imgur.com/fm0CUbZ.png)
+![Preview](https://i.imgur.com/Ig1ibat.png)
+## [Live link](https://real-time-webapp.herokuapp.com/)
 
 During this course you will learn how to build a **meaningful** real-time application. You will learn techniques to setup an open connection between the client and the server. This will enable you to send data in real-time both ways, at the same time.
 
@@ -13,6 +14,7 @@ During this course you will learn how to build a **meaningful** real-time applic
 1. __[API](#api)__
 1. __[Data](#data)__
 1. __[Data lifecycle](#data-lifecycle)__
+1. __[Events](#events)__
 1. __[Dependencies](#dependencies)__
 1. __[Features](#features)__
 1. __[Sources](#sources)__
@@ -127,8 +129,23 @@ is_playing: true
 
 
 ## Data lifecycle
-![Imgur](https://i.imgur.com/tePPSxl.jpg)
+
 <img src="/public/assets/img/datalife.png">
+
+## Events
+* `'server message'` // on connect this message shows up
+* `'new-user'` // if input has been filled for the username, this wil show up after
+* `'user-connected'` // the message that get broadcasted at first login
+* `'send-chat-message'` 
+* `'chat-message'`
+* `'message-command'` // some triggers for the api fetch
+* `'command-message'` // the message that triggers the result from fetch
+* `'disconnect'` // bye bye user
+* `search-spotify`// input query for spotify search
+* `select song`// select from dom
+* `add que` // add to server to broadcast
+* `stream`// start playing song
+* `remove from que` // remove when audioplayer is done
 
 ## Dependencies
 * cookie-parser
@@ -141,20 +158,32 @@ is_playing: true
 * querystring
 * request
 * socket.io
-* spotify-web-api-node
 
 ## Features
-
-// Wishlist
-
+// Must have
+* Chat with eachother
+* Usage of giphies
 * Listen to a song together
 * Make a playlist
+
+// Wishlist
 * Show who is currently listening to what song
 * Make suggestions ( most played, popularity)
 
 ## Sources
 
+* [Manau](https://github.com/Mennauu/real-time-web-1819)
+* [Kris](https://github.com/kriskuiper/real-time-web-1920)
+* [Lien](https://github.com/nlvo/real-time-web-1920)
+* [millisecond to seconds](https://stackoverflow.com/questions/21294302/converting-milliseconds-to-minutes-and-seconds-with-javascript)
+* [Socket.io](https://socket.io/)
+* [Spotify Api](https://developer.spotify.com/)
+
 ## Credits
+`Lien`
+`Mikael`
+`Coen` 
+
 
 
 <!-- ## Curriculum
