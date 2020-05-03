@@ -127,12 +127,6 @@ if (access_token) {
 
 appendMessage('You joined')
 
-// // connection new user 
-// socket.on('user-connected', data => {
-//     console.log(data)
-//     appendMessage(`${data.name} has joined the chat`)
-// })
-
 // chat messages receving
 socket.on('own-message', data => {
     const msgContainer = document.getElementById('messages')
@@ -212,12 +206,6 @@ searchSong.addEventListener('submit', async (e) => {
     removePreviousResulst(songUl)
     appendSongToList(songs)
 
-
-    // for(let song of songs){
-    //     let id = song.id
-    //     console.log(song)
-    // }
-
     socket.emit('search-spotify', {
         songValue
     })
@@ -239,79 +227,44 @@ socket.on('select song', data => {
     })
 })
 socket.on('add que', data => {
-console.log(data,'quesd')
+    console.log(data, 'quesd')
     appendSongToQue(data)
-    // socket.emit('quelist', data)
     socket.emit('stream', data)
 
 })
 
 socket.on('stream', data => {
-    // let nestedData = data[0].item
-    console.log(data,'joan')
-    // audioPlayer.play()
-    // console.log(audioPlayer.currentTime)
-    console.log('stream', data.length)
+
     if (data.length) {
-        console.log(data[0],'firstdata')
-            if (audioPlayer.currentTime == 0) {
-                if (data[0].item.preview) {
-                    console.log(data[0].item.preview)
-                    audioPlayer.src = data[0].item.preview
-                    const promise = audioPlayer.play()
+        console.log(data[0], 'firstdata')
+        if (audioPlayer.currentTime == 0) {
+            if (data[0].item.preview) {
+                console.log(data[0].item.preview)
+                audioPlayer.src = data[0].item.preview
+                const promise = audioPlayer.play()
 
-                    if (promise !== undefined) {
+                if (promise !== undefined) {
 
-                        promise.then(_ => {
-                            // Autoplay started!
-                        }).catch(error => {
-                            // console.log(error)
-                        })
-                    }
+                    promise.then(_ => {
+                        // Autoplay started!
+                    }).catch(error => {
+                        // console.log(error)
+                    })
                 }
             }
+        }
 
         // console.log(nestedData)
         audioPlayer.onended = function () {
             audioPlayer.currentTime = 0
-            console.log(data.length, data,'nested')
+            console.log(data.length, data, 'nested')
             if (data.length > 0) {
                 socket.emit('remove from que', data[0].item.id)
             }
         }
 
     }
-
-    // audioPlayer.onended = function () {
-    //     audioPlayer.currentTime = 0
-
-    //     if (data.length > 0) {
-    //         socket.emit('remove from que', data.name)
-    //     }
-    // }
 })
-// if (searchSong) {
-//     socket.on('search-spotify', async data => {
-//         let songs = await fetchSongs(data)
-//         console.log('hier',songs)
-//         appendSongToList(songs)
-//         socket.emit('search-spotify', {songs})
-//     })
-// }
-// socket.on('select song', async data => {
-//     let songs = await fetchSongs(data)
-//     // for(let song of songs){
-//     //     let id = song.id
-//     //     console.log(song)
-//     //   id.addEventListener('click', ()=>{
-//     //       console.log('this')
-//     //   })
-//     // }
-//     // const songlist = document.getElementById('songs')
-//     console.log('help', songs)
-//     socket.emit('select song', songs)
-// })
-
 
 
 
@@ -391,24 +344,7 @@ async function appendSongToQue(tracks) {
     </li>`
         }
     }
-
-
     queList.innerHTML = addQue
-    // data.forEach(item => {
-    //     queList.insertAdjacentHTML('beforeend', `
-    //     <li class="tracks" id="${item.id}">
-    //         <img class="albumcover" src="${item.img}">
-    //         <div class="info">
-    //                 <h2>
-    //                 ${item.artists} 
-    //                 </h2>
-    //                 <p>
-    //                 ${item.song}
-    //                 </p>
-    //                 <span>duration: ${item.duration}</span>
-    //         </div>
-    //     </li>`)
-    // })
 
 }
 
