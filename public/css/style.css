@@ -356,7 +356,7 @@ ul#que {
 }
 
 img.albumcover {
-    width: 5em;
+    width: 4em;
     float: left;
     margin-right: 2em;
 }
@@ -457,13 +457,23 @@ section.playlist {
     /* border-radius: 0.6em; */
 }
 
+span.addedby {
+    color: #ffca00;
+    text-align: right;
+    display: block;
+    position: relative;
+    font-size: 0.6em;
+    left: -10em;
+    top: -0.2em;
+}
+
 @media only screen and (max-width: 500px) {
     .spotify-container{
         width:90%;
     }
     #songs li, #que li {
         font-size: 0.5em;
-        width: 100%;
+        width: 80%;
     }
     section.search-song,section.playlist{
         width:100%;

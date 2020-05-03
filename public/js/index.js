@@ -232,11 +232,12 @@ socket.on('add que', data => {
 
 })
 
-socket.on('stream', data => {
+socket.on('stream', async data => {
 
     if (data.length) {
         if (audioPlayer.currentTime == 0) {
             if (data[0].item.preview) {
+       
                 audioPlayer.src = data[0].item.preview
                 audioPlayer.play()
             }
@@ -253,16 +254,16 @@ socket.on('stream', data => {
 })
 
 
-
-
 // fetch songs 
 async function fetchSongs(data) {
     const value = data
     const songFetch = await fetch(`/api/search?q=${value}`)
     const tracks = await songFetch.json()
     const newData = await cleanData(tracks)
+    console.log(tracks)
     return newData
 }
+
 // clean tracks
 async function cleanData(data) {
     let tracks = await data.map(item => {
@@ -272,6 +273,7 @@ async function cleanData(data) {
             song: item.name,
             img: item.album.images[0].url,
             preview: item.preview_url,
+            fullSOng: item.href,
             duration: msToMinutes(item.duration_ms),
             popularity: item.popularity
         }
@@ -307,7 +309,8 @@ async function appendSongToList(tracks) {
 async function appendSongToQue(tracks) {
     //https://github.com/Mennauu/real-time-web-1819 from menau's code Concept: newMap
     let newMap = [...new Map(tracks.map(obj => [JSON.stringify(obj), obj])).values()]
-
+    let user = await fetchWithToken(access_token)
+    console.log(user)
     let addQue
 
     for (let data of newMap) {
@@ -315,6 +318,7 @@ async function appendSongToQue(tracks) {
 
         if (item.preview != null) {
             addQue += `
+        <span class="addedby">Added by: ${user.display_name}  </span>
         <li class="tracks" id="${item.id}">
         <img class="albumcover" src="${item.img}">
         <div class="info">
@@ -324,7 +328,6 @@ async function appendSongToQue(tracks) {
                 <p>
                 ${item.song}
                 </p>
-                <span>duration: ${item.duration}</span>
         </div>
     </li>`
         }
@@ -335,6 +338,7 @@ async function appendSongToQue(tracks) {
 // insert song results to DOM
 function songList(name, title) {
     songUl.insertAdjacentHTML('beforeend', `
+   
     <li>
         <div class="album-contain">
         <div class="info">
