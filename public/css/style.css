@@ -6,7 +6,7 @@
 
 body {
     font-family: Roboto;
-    background: rgb(45, 37, 94);
+    background: #162447;
 }
 
 section.enter-user {
@@ -457,7 +457,7 @@ section.playlist {
     /* border-radius: 0.6em; */
 }
 
-@media only screen and (max-width: 320px) {
+@media only screen and (max-width: 500px) {
     .spotify-container{
         width:90%;
     }
@@ -469,6 +469,6 @@ section.playlist {
         width:100%;
     }
     input#numberSearch,button.button--form{
-        font-size:1em;
+        font-size:1.1em;
     }
   }
