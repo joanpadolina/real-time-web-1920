@@ -45,7 +45,6 @@ async function addToQue(req, id){
     }
     
     const response = await fetch(`https://api.spotify.com/v1/me/player/queue?${query}`, options)
-    console.log(response)
 
 }
 
@@ -55,7 +54,7 @@ async function dataResponse(req, res) {
 
     if (searchQuery) {
         const data = await search(req, searchQuery)
-        // console.log(data.items)
+
         res.json(data.items)
     }
     // const item = await res.json(data.tracks.items)

@@ -3,8 +3,12 @@
 <!-- <div id="my-visualisation"></div> -->
 <!-- <svg width="960" height="500"></svg> -->
 
-<section class="logspotify">
-    <button class="btn-login"><a href="/login">Log in to your spotify</a></button>
+<section id="log" class="logspotify">
+    <div>
+    <h1>Together we listen</h1>
+    <p>To use this application please sign into your spotify account</p>
+    <button class="btn-login"><a href="/login">Let's GO</a></button>
+    </div>
 </section>
 
 <!-- <section class="enter-user">
@@ -20,7 +24,7 @@
 
 
 <section class="chat-container">
-    <button id="leave">leave</button>
+    <!-- <button id="leave">leave</button> -->
     <article class="chat-msg">
         <!-- <img class="profile" src=""> -->
         <ul id="messages"></ul>
@@ -35,7 +39,7 @@
 
     </div>
 </section>
-
+<div class="spotify-container">
 <section class="search-song">
     <form id="searchSongs" action="">
         <input id="numberSearch" placeholder="Search for a song">
@@ -46,9 +50,9 @@
 <section class="playlist">
     <div class="quelist">
         <audio id="audioPlayer"></audio>
-        <div class="progress" id="progress"></div>
         <ul id="que"></ul>
     </div>
 </section>
+</div>
 </div>
 <%- include('partials/footer')  %>

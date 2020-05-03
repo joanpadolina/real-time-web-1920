@@ -6,7 +6,7 @@
 
 body {
     font-family: Roboto;
-    background:rgb(45, 37, 94);
+    background: rgb(45, 37, 94);
 }
 
 section.enter-user {
@@ -43,6 +43,54 @@ section.enter-user {
     margin: 1em auto;
 }
 
+/* login button spotify */
+section.logspotify {
+    position: fixed;
+    display: flex;
+    z-index: 2;
+    background: #222831;
+    height: 100vh;
+    width: 100vw;
+    overflow: hidden;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+
+}
+section.logspotify div h1 {
+    color:#eeeeee;
+    font-size: 3em;
+    margin: .3em;
+}
+section.logspotify div p{
+    color:#eeeeee;
+    margin: .3em;
+}
+
+button.btn-login {
+    padding: 2em;
+    background: transparent;
+    /* border-radius: 7em; */
+    border: 1px solid #00adb5; ;
+    transition: 800ms ease-in-out;
+    margin: 2.3em;
+    width: 40em;
+}
+button.btn-login:hover{
+    background: linear-gradient(0deg, rgba(177,65,107,1) 26%, rgba(241,170,96,1) 100%);
+    cursor: pointer;
+}
+
+a {
+    text-decoration: none;
+    font-size: 2em;
+    color: white;
+    font-family: Roboto-bold;
+}
+a:hover{
+    color: black;
+}
+
 input#name-value {
     width: 40vw;
     height: 4em;
@@ -71,18 +119,17 @@ box-shadow: inset -5px -5px 0px 1px aliceblue;
 }
 
 section.chat-container {
-    background: #bee1e5;
     position: relative;
     display: block;
     width: 20em;
     border-radius: 1em;
     border: 1px solid #cccccc;
     top: 2em;
-    box-shadow: 6px 4px 0px 0px #eaeaea;
+    box-shadow: 6px 4px 0px 0px #6c87ab;
 }
 
 article.chat-msg {
-    margin: 0.5em;
+    margin: 0.7em;
     background: white;
     border-radius: 1em;
     height: 70vh;
@@ -93,7 +140,8 @@ ul#messages {
     padding: 1em;
     display: block;
     position: relative;
-    height: 100%;
+    height: 96%;
+    top: 1em;
     overflow: scroll;
 }
 
@@ -106,6 +154,7 @@ ul#messages {
     display: inline-block;
     width: 100%;
 }
+
 form#chat-form {
     margin: auto;
     position: relative;
@@ -150,16 +199,19 @@ img {
     top: 1.7em;
     position: relative;
 }
+
 .chat-msg-one {
     width: 100%;
     display: inline-block;
 
 }
+
 .chat-one {
     position: relative;
     width: 77%;
     display: inline-block;
 }
+
 .chat-one p {
     background: #29348e;
     color: white;
@@ -171,7 +223,9 @@ img {
     word-wrap: break-word;
     width: 100%;
 }
-.chat-one span, .chat-two span{
+
+.chat-one span,
+.chat-two span {
     position: relative;
     color: grey;
     display: block;
@@ -191,9 +245,10 @@ img.profile-two {
     display: inline-block;
     top: 0.7em;
 }
-.chat-two span{
-    float:left;
-    text-align:left;
+
+.chat-two span {
+    float: left;
+    text-align: left;
 }
 
 .chat-two {
@@ -238,7 +293,8 @@ li.broad-chat {
     right: 0;
     animation: reveal-cast 400ms ease-in-out 1;
 }
-.show-login{
+
+.show-login {
     position: relative;
     font-size: 0.8em;
     text-align: center;
@@ -252,67 +308,96 @@ li.broad-chat {
 
 /* songs styling */
 
-ul#songs, ul#que {
+ul#songs,
+ul#que {
     list-style-type: none;
     overflow: scroll;
-    height: 100%;
+    height: 97.8%;
+    top: 1.4em;
+    position: relative;
 }
-#songs li, #que li {
-    display: inline-block;
-    width: 100%;
+
+#songs li,
+#que li {
+    display: block;
+    width: 34em;
     position: relative;
     padding: 1em;
+    border: 1px solid #eeeeee;
+    font-size: 0.9em;
+    margin: .3em auto;
 }
+
 .quelist {
-    height: 40em;
+    height: 20em;
 }
+
 #que li {
     background: white;
     margin-bottom: 0.6em;
     border-radius: 0.4em;
+    opacity: 1;
+    bottom: 0em;
+    right: 0;
 }
-ul#que{
-    padding:1em;
+
+.tracks {
+    opacity: 1;
+    bottom: 0em;
+    right: 0;
+    animation: reveal-cast 700ms ease-in-out;
 }
+
+ul#que {
+    padding: 1em;
+    font-size: .9em;
+    top: 1em;
+    height: 92%;
+}
+
 img.albumcover {
     width: 5em;
     float: left;
     margin-right: 2em;
 }
 
-.tracks:hover{
+.tracks:hover {
     cursor: pointer;
-    border:1px solid white;
-    transition:400ms ease-in-out;
+    border: 1px solid white;
+    transition: 400ms ease-in-out;
 }
 
 
 
-@keyframes remove-cast{
-    0%{
-        right:0;
+@keyframes remove-cast {
+    0% {
+        right: 0;
         opacity: 1;
     }
-    50%{
+
+    50% {
         opacity: 0;
     }
-    100%{
+
+    100% {
         opacity: 0;
-        right:2em;
+        right: 2em;
     }
 }
 
-@keyframes reveal-cast{
-    0%{
-        bottom:-1em;
+@keyframes reveal-cast {
+    0% {
+        bottom: -1em;
         opacity: 0;
     }
-    50%{
+
+    50% {
         opacity: 1;
     }
-    100%{
+
+    100% {
         opacity: 1;
-        bottom:0em;
+        bottom: 0em;
     }
 }
 
@@ -322,22 +407,68 @@ img.albumcover {
 
 .container {
     display: flex;
+    flex-wrap: wrap;
     width: 100%;
     justify-content: space-around;
 }
 
+.spotify-container {
+    top: 3em;
+    position: relative;
+}
+input#numberSearch {
+    width: 100%;
+    height: 2em;
+    position: absolute;
+    top: 0;
+    border: none;
+    padding: 1em;
+    left: 0;
+    font-size: 1.6em;
+    color: #222831;
+    background: #eeeeee;
+}
+
 section.search-song {
-    height: 40em;
-    background: #a4e8a4;
-    width: 30em;
+    height: 20em;
+    background: #393e46;
+    width: 40em;
     position: relative;
     padding: 2em;
     margin-right: 2em;
+    color: #eeeeee;
+}
+
+button.button--form {
+    border: none;
+    padding: 0.43em;
+    position: absolute;
+    right: 0;
+    top: 0;
+    background: #222831;
+    color: #00adb5;
+    font-size: 1.6em;
 }
 
 section.playlist {
     background: #101010;
-    height: 40em;
-    width: 25em;
-    border-radius: 0.6em;
+    height: 20em;
+    width: 40em;
+    /* border-radius: 0.6em; */
 }
+
+@media only screen and (max-width: 320px) {
+    .spotify-container{
+        width:90%;
+    }
+    #songs li, #que li {
+        font-size: 0.5em;
+        width: 100%;
+    }
+    section.search-song,section.playlist{
+        width:100%;
+    }
+    input#numberSearch,button.button--form{
+        font-size:1em;
+    }
+  }

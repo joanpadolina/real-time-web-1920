@@ -20,7 +20,6 @@ exports.socket = async (io) => {
 
         const updateQueList = () => {
             io.emit('add que', queList)
-            console.log(queList)
         }
 
 
@@ -84,12 +83,10 @@ exports.socket = async (io) => {
             }
         })
         socket.on('search-spotify', async (data) => {
-            // console.log('hi',data)
             socket.emit('search-spotify', data)
             // socket.emit('select song', data)
         })
         socket.on('select song', data => {
-            // console.log('yeet', data)
             socket.emit('select song', data)
         })
         socket.on('add que', item => {
@@ -98,9 +95,7 @@ exports.socket = async (io) => {
             })
             updateQueList()
         })
-        // console.log(queList)
         socket.on('stream', (data) => {
-            console.log('what', data)
             io.emit('stream', data)
         })
 

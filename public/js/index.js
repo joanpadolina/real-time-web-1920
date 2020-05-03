@@ -9,9 +9,11 @@ const inputSong = document.querySelector('#numberSearch')
 const songUl = document.getElementById('songs')
 const queList = document.getElementById('que')
 const audioPlayer = document.getElementById('audioPlayer');
+const loginScreen = document.getElementById('log')
 
 
 
+// get access token from url string
 function getHashParams() {
     let hashParams = {}
     let e, r = /([^&;=]+)=?([^&;]*)/g
@@ -23,6 +25,7 @@ function getHashParams() {
 const params = getHashParams();
 const access_token = params.access_token
 const refresh_token = params.refresh_token
+
 
 async function fetchWithToken(token) {
     const options = {
@@ -58,7 +61,6 @@ async function search(searchQuery) {
 
 async function cleanUserData(token) {
     let data = await fetchWithToken(token)
-    // console.log(data)
     let user = {
         name: data.display_name
     }
@@ -73,11 +75,9 @@ async function cleanUserData(token) {
 
 if (access_token) {
 
+    loginScreen.style.display = 'none'
     async function init() {
-        // let data = await fetchWithToken(access_token)
         let data = await cleanUserData(access_token)
-        // console.log('data', data)
-
         socket.on('connect', () => {
             socket.emit('new-user', {
                 name: data.name,
@@ -227,7 +227,6 @@ socket.on('select song', data => {
     })
 })
 socket.on('add que', data => {
-    console.log(data, 'quesd')
     appendSongToQue(data)
     socket.emit('stream', data)
 
@@ -236,28 +235,15 @@ socket.on('add que', data => {
 socket.on('stream', data => {
 
     if (data.length) {
-        console.log(data[0], 'firstdata')
         if (audioPlayer.currentTime == 0) {
             if (data[0].item.preview) {
-                console.log(data[0].item.preview)
                 audioPlayer.src = data[0].item.preview
-                const promise = audioPlayer.play()
-
-                if (promise !== undefined) {
-
-                    promise.then(_ => {
-                        // Autoplay started!
-                    }).catch(error => {
-                        // console.log(error)
-                    })
-                }
+                audioPlayer.play()
             }
         }
 
-        // console.log(nestedData)
         audioPlayer.onended = function () {
             audioPlayer.currentTime = 0
-            console.log(data.length, data, 'nested')
             if (data.length > 0) {
                 socket.emit('remove from que', data[0].item.id)
             }
@@ -279,7 +265,6 @@ async function fetchSongs(data) {
 }
 // clean tracks
 async function cleanData(data) {
-    // console.log(data)
     let tracks = await data.map(item => {
         return {
             id: item.id,
@@ -322,12 +307,12 @@ async function appendSongToList(tracks) {
 async function appendSongToQue(tracks) {
     //https://github.com/Mennauu/real-time-web-1819 from menau's code Concept: newMap
     let newMap = [...new Map(tracks.map(obj => [JSON.stringify(obj), obj])).values()]
-    // console.log(newMap)
 
     let addQue
 
     for (let data of newMap) {
         let item = data.item
+
         if (item.preview != null) {
             addQue += `
         <li class="tracks" id="${item.id}">
@@ -345,7 +330,6 @@ async function appendSongToQue(tracks) {
         }
     }
     queList.innerHTML = addQue
-
 }
 
 // insert song results to DOM
@@ -402,7 +386,6 @@ let ul = document.querySelector('#messages')
 let item = ul.querySelectorAll('li')
 
 function whiteList(data) {
-    console.log(data)
     if (data == "fuck") {
         appendMessage('nooo')
     }
