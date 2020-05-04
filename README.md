@@ -141,11 +141,11 @@ is_playing: true
 * `'message-command'` // some triggers for the api fetch
 * `'command-message'` // the message that triggers the result from fetch
 * `'disconnect'` // bye bye user
-* `search-spotify`// input query for spotify search
-* `select song`// select from dom
-* `add que` // add to server to broadcast
-* `stream`// start playing song
-* `remove from que` // remove when audioplayer is done
+* `'search-spotify'`// input query for spotify search
+* `'select song'`// select from dom
+* `'add que'` // add to server to broadcast
+* `'stream'`// start playing song
+* `'remove from que'` // remove when audioplayer is done
 
 ## Dependencies
 * cookie-parser
