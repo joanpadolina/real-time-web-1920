@@ -130,7 +130,7 @@ is_playing: true
 
 ## Data lifecycle
 
-<img src="/public/assets/img/datalife.png">
+![Lifecycle](https://github.com/joanpadolina/real-time-web-1920/blob/master/public/assets/img/data_life3.png)
 
 ## Events
 * `'server message'` // on connect this message shows up
@@ -180,9 +180,15 @@ is_playing: true
 * [Spotify Api](https://developer.spotify.com/)
 
 ## Credits
-`Lien`
-`Mikael`
-`Coen` 
+`Lien` // spotify authentication
+
+`Mikael` // regex bad words
+
+`Coen`  // mental support
+
+`Daniel` // Datalifecycle feedback
+
+`Leroy` // Datalifecycle feedback and issues
 
 
 
