@@ -149,19 +149,27 @@ async function cleanData(data) {
 ![DLC](https://i.imgur.com/X9FQu7P.png)
 
 ## Events
+
+Client to Server
 * `'server message'` // on connect this message shows up
 * `'new-user'` // if input has been filled for the username, this wil show up after
 * `'user-connected'` // the message that get broadcasted at first login
 * `'send-chat-message'` // triggers for the input chat
-* `'chat-message'` // the message that is being send to be broadcasted
 * `'message-command'` // some triggers for the api fetch
-* `'command-message'` // the message that triggers the result from fetch
-* `'disconnect'` // bye bye user
+
 * `'search-spotify'`// input query for spotify search
 * `'select song'`// select from dom
+
+
+Server to Client
+* `'chat-message'` // the message that is being send to be broadcasted
+* `'command-message'` // the message that triggers the result from fetch
+
 * `'add que'` // add to server to broadcast
 * `'stream'`// start playing song
 * `'remove from que'` // remove when audioplayer is done
+
+* `'disconnect'` // bye bye user
 
 ## Dependencies
 * cookie-parser
