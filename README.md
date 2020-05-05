@@ -1,6 +1,6 @@
 # Real-Time WebApplication
 
-![Preview](https://i.imgur.com/Ig1ibat.png)
+![Preview](https://i.imgur.com/dfFKWWT.png)
 ## [Live link](https://real-time-webapp.herokuapp.com/)
 
 During this course you will learn how to build a **meaningful** real-time application. You will learn techniques to setup an open connection between the client and the server. This will enable you to send data in real-time both ways, at the same time.
