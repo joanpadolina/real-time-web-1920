@@ -104,8 +104,8 @@ const redirect_uri = process.env.REDIRECT_URI
 Base url: 
 https://api.spotify.com/v1/me
 
-Endpoints
-/player/currently-playing
+Endpoint
+https://api.spotify.com/v1/search
 
 ```
 
@@ -120,6 +120,28 @@ name: "Say Less"
 popularity: 58
 is_playing: true
 ```
+
+Cleaned Data
+
+```js
+async function cleanData(data) {
+    let tracks = await data.map(item => {
+        return {
+            id: item.id,
+            artists: item.artists[0].name,
+            song: item.name,
+            img: item.album.images[0].url,
+            preview: item.preview_url,
+            fullSOng: item.href,
+            duration: msToMinutes(item.duration_ms),
+            popularity: item.popularity
+        }
+    })
+    return tracks
+}
+
+```
+
 
 
 ## Data lifecycle
