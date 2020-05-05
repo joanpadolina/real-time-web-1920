@@ -354,6 +354,26 @@ ul#que {
     top: 1em;
     height: 92%;
 }
+ul#que li:nth-of-type(1)::before{
+    content: "Now playing:";
+    display: block;
+    background: #ff6100;
+    padding: 0.5em;
+    margin-bottom: .2em;
+    color: white;
+    font-weight: 800;
+    
+}
+ul#que li:nth-of-type(2)::before{
+    content: "Up next:";
+    display: block;
+    background: #5f1f33;
+    padding: 0.5em;
+    margin-bottom: .2em;
+    color: white;
+    font-weight: 800;
+    
+}
 
 img.albumcover {
     width: 4em;
