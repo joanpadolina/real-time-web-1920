@@ -146,7 +146,7 @@ async function cleanData(data) {
 
 ## Data lifecycle
 
-![Lifecycle](https://github.com/joanpadolina/real-time-web-1920/blob/master/public/assets/img/data_life3.png)
+![DLC](https://i.imgur.com/X9FQu7P.png)
 
 ## Events
 * `'server message'` // on connect this message shows up
