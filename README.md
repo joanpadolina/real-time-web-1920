@@ -136,8 +136,8 @@ is_playing: true
 * `'server message'` // on connect this message shows up
 * `'new-user'` // if input has been filled for the username, this wil show up after
 * `'user-connected'` // the message that get broadcasted at first login
-* `'send-chat-message'` 
-* `'chat-message'`
+* `'send-chat-message'` // triggers for the input chat
+* `'chat-message'` // the message that is being send to be broadcasted
 * `'message-command'` // some triggers for the api fetch
 * `'command-message'` // the message that triggers the result from fetch
 * `'disconnect'` // bye bye user
@@ -169,6 +169,7 @@ is_playing: true
 // Wishlist
 * Show who is currently listening to what song
 * Make suggestions ( most played, popularity)
+* Delete certain numbers from the playlist
 
 ## Sources
 
