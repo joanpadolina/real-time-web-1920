@@ -113,12 +113,25 @@ https://api.spotify.com/v1/search
 
 Data example
 ```json
-timestamp: 1587389364804
-context: null
-artists: (2) [{…}, {…}]
-name: "Say Less"
-popularity: 58
-is_playing: true
+items:[{
+      album: [Object],
+      artists: [Array],
+      disc_number: 1,
+      duration_ms: 251986,
+      explicit: false,
+      external_ids: [Object],
+      external_urls: [Object],
+      href: 'https://api.spotify.com/v1/tracks/51tUT1gHE30GQPhn1agudM',
+      id: '51tUT1gHE30GQPhn1agudM',
+      is_local: false,
+      is_playable: true,
+      name: 'Hideaway',
+      popularity: 66,
+      preview_url: null,
+      track_number: 1,
+      type: 'track',
+      uri: 'spotify:track:51tUT1gHE30GQPhn1agudM'
+    }]
 ```
 
 Cleaned Data
