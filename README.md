@@ -112,7 +112,7 @@ https://api.spotify.com/v1/search
 ## Data
 
 Data example
-```json
+```
 items:[{
       album: [Object],
       artists: [Array],
