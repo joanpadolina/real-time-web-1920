@@ -207,6 +207,7 @@ Server to Client
 * Show who is currently listening to what song
 * Make suggestions ( most played, popularity)
 * Delete certain numbers from the playlist
+* A datavisualisation about popularity of the song
 
 ## Sources
 
